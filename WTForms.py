@@ -1,6 +1,6 @@
 
 from flask_wtf import Form
-from wtforms import StringField, FloatField, SubmitField, DateField, Label
+from wtforms import StringField,IntegerField, FloatField, SubmitField, DateField, Label
 from wtforms import validators
 
 
@@ -72,6 +72,17 @@ class AdvsForm(Form):
     name_adv = StringField("name_adv: ", [validators.data_required("Please, enter a name of the subject.")])
     description = StringField("description: ", [validators.data_required("Please, enter a group code of the student.")])
     products_name_product = StringField("products_name_product: ", [validators.data_required("Please, enter a study book of the student.")])
+
+    submit = SubmitField("Enter")
+
+class ViewersForm(Form):
+
+    nikname = StringField("nikname: ", [validators.data_required("Please, enter a name of the subject.")])
+    email = StringField("email: ", [validators.data_required("Please, enter a group code of the student.")])
+    firstname = StringField("firstname: ", [validators.data_required("Please, enter a study book of the student.")])
+    lastname = StringField("lastname: ", [validators.data_required("Please, enter a study book of the student.")])
+    age = IntegerField("age: ", [validators.data_required("Please, enter a study book of the student.")])
+    country = StringField("country: ", [validators.data_required("Please, enter a study book of the student.")])
 
     submit = SubmitField("Enter")
 

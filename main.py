@@ -373,5 +373,21 @@ def advs():
     select_result = Advs.query.filter_by().all()
     return render_template('advs.html', data=select_result, form=form)
 
+
+@app.route('/edit_viewer', methods=['GET', 'POST'])
+def edit_viewer():
+
+    form = ViewersForm()
+    select_result = Viewers.query.filter_by().all()
+    return render_template('viewers.html', data=select_result, form=form)
+
+
+@app.route('/viewers', methods=['GET', 'POST'])
+def viewers():
+
+    form = ViewersForm()
+    select_result = Viewers.query.filter_by().all()
+    return render_template('viewers.html', data=select_result, form=form)
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -216,3 +216,32 @@ class Advs(db.Model):
         return '<Adv: name_adv=%r; description=%r; products_name_product=%r>' % \
                self.name_adv, self.description, self.products_name_product
 
+
+class Viewers(db.Model):
+
+    __tablename__ = 'viewers'
+    email = db.Column('email', db.varchar(50), primary_key=True)
+    nikname = db.Column('nikname', db.varchar(30), nullable=False)
+    firstname = db.Column('firstname', db.varchar(30))
+    lastname = db.Column('lastname', db.varchar(30))
+    country = db.Column('country', db.varchar(50))
+    age = db.Column('age', db.int)
+
+
+
+    def __init__(self, nikname, email, firstname, lastname, age, country):
+
+        self.nikname = nikname
+        self.email = email
+        self.firstname = firstname
+        self.lastname = lastname
+        self.age = age
+        self.country = country
+
+
+    def __repr__(self):
+
+        return '<Viewer: nikname=%r; email=%r; firstname=%r; lastname=%r; age=%r; country=%r>' % \
+               self.nikname, self.email, self.firstname, self.lastname, self.age, self.country
+
+
