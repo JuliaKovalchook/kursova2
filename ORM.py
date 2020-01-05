@@ -15,12 +15,20 @@ class Groups(db.Model):
     group_subject = db.relationship('GroupSubject', backref='groups', lazy='dynamic')
 
     def __init__(self, code):
-
         self.code = code
-
     def __repr__(self):
-
         return '<Group: code=%r>' % self.code
+
+class Provider(db.Model):
+
+    __tablename__ = 'Provider'
+    Name_Provider = db.Column('Name_Provider', db.String(30), primary_key=True)
+    type_product = db.relationship('Students', backref='Name_Provider', lazy='dynamic')
+
+    def __init__(self, Name_Provider):
+        self.Name_Provider = Name_Provider
+    def __repr__(self):
+        return '<Provider: Name_Provider=%r>' % self.Name_Provider
 
 
 class Subjects(db.Model):
