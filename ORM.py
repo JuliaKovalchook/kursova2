@@ -18,7 +18,7 @@ class Groups(db.Model):
         self.code = code
     def __repr__(self):
         return '<Group: code=%r>' % self.code
-
+'''
 class Provider(db.Model):
 
     __tablename__ = 'Provider'
@@ -29,7 +29,7 @@ class Provider(db.Model):
         self.Name_Provider = Name_Provider
     def __repr__(self):
         return '<Provider: Name_Provider=%r>' % self.Name_Provider
-
+'''
 
 class Subjects(db.Model):
 
