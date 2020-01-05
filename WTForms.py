@@ -60,7 +60,7 @@ class SubjectSheetForm(Form):
 class productsForm(Form):
 
     name_product = StringField("name_product: ", [validators.data_required("Please, enter a name of the subject.")])
-    price = IntegerField("price: ", [validators.data_required("Please, enter a group code of the student.")])
+    price = StringField("price: ", [validators.data_required("Please, enter a group code of the student.")])
     provider_name_provider = StringField("provider_name_provider: ", [validators.data_required("Please, enter a study book of the student.")])
 
     submit = SubmitField("Enter")
