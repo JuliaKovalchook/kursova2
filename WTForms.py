@@ -11,18 +11,21 @@ class GroupsForm(Form):
     submit = SubmitField("Enter")
 
 
-class Provider123sForm(Form):
-
-    name_provider123 = StringField("Name_Provider123: ", [validators.data_required("Please, enter a Name_Provider123.")])
-
-    submit = SubmitField("Enter")
-
 
 class SubjectsForm(Form):
 
     name = StringField("Name: ", [validators.data_required("Please, enter a name of the subject.")])
 
     submit = SubmitField("Enter")
+
+
+
+class Subjects2Form(Form):
+
+    predmet = StringField("Predmet: ", [validators.data_required("Please, enter a name of the predmet.")])
+
+    submit = SubmitField("Enter")
+
 
 
 class StudentsForm(Form):

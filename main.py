@@ -76,13 +76,9 @@ def groups():
 
 @app.route('/edit_subject', methods=['GET', 'POST'])
 def edit_subject():
-
     form = SubjectsForm()
     select_result = Subjects.query.filter_by().all()
-
     return render_template("subjects.html", data=select_result, form=form)
-
-
 @app.route('/subjects', methods=['GET', 'POST'])
 def subjects():
 
@@ -92,6 +88,17 @@ def subjects():
 
     return render_template('subjects.html', data=select_result, form=form)
 
+@app.route('/edit_subject2', methods=['GET', 'POST'])
+def edit_subject():
+    form = Subjects2Form()
+    select_result = Subjects2.query.filter_by().all()
+    return render_template("subjects2.html", data=select_result, form=form)
+@app.route('/subjects2', methods=['GET', 'POST'])
+def subjects():
+
+    form = Subjects2Form()
+    select_result = Subjects2.query.filter_by().all()
+    return render_template('subjects2.html', data=select_result, form=form)
 
 
 @app.route('/edit_student', methods=['GET', 'POST'])
@@ -235,23 +242,6 @@ def subjectsheet():
             select_result.append(subjectsheet)
 
     return render_template('subjectsheet.html', data=select_result, form=form)
-
-@app.route('/edit_provider123', methods=['GET', 'POST'])
-def edit_provider123():
-
-    form = Provider123sForm()
-    select_result = Provider123s.query.filter_by().all()
-    return render_template("Provider123s.html", data=select_result, form=form)
-
-
-@app.route('/Provider123s', methods=['GET', 'POST'])
-def Provider123s():
-
-    form = Provider123sForm()
-    select_result = Provider123s.query.filter_by().all()
-
-    return render_template('Provider123s.html', data=select_result, form=form)
-
 
 
 if __name__ == '__main__':

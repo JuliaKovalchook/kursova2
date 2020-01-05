@@ -31,18 +31,18 @@ class Subjects(db.Model):
 
         return 'Subject: name=%r' % self.name
 
-class Provider123s(db.Model):
 
-    __tablename__ = 'Provider123s'
-    Name_Provider123 = db.Column('Name_Provider123', db.String(64), primary_key=True)
+class Subjects2(db.Model):
 
-    def __init__(self, Name_Provider123):
+    __tablename__ = 'subjects2'
+    predmet = db.Column('predmet', db.String(64), primary_key=True)
+    def __init__(self, predmet):
 
-        self.Name_Provider123 = Name_Provider123
+        self.predmet = predmet
 
     def __repr__(self):
 
-        return 'Provider123: Name_Provider123=%r' % self.Name_Provider123
+        return 'Subject: name=%r' % self.predmet
 
 class StudentStatus(db.Model):
 
