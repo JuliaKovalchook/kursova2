@@ -347,7 +347,7 @@ def providers():
 def edit_product():
 
     form = ProductsForm()
-    select_result = products.query.filter_by().all()
+    select_result = Products.query.filter_by().all()
     return render_template('products.html', data=select_result, form=form)
 
 
@@ -355,7 +355,7 @@ def edit_product():
 def products():
 
     form = ProductsForm()
-    select_result = products.query.filter_by().all()
+    select_result = Products.query.filter_by().all()
     return render_template('products.html', data=select_result, form=form)
 
 
