@@ -80,6 +80,17 @@ def edit_subject():
     form = SubjectsForm()
     select_result = Subjects.query.filter_by().all()
 
+    if request.method == 'POST':
+        if not form.validate():
+            flash('All fields are required.')
+            return render_template('edit_subject.html')
+        else:
+            subject_name = session['subject_edit_pk_data']
+            subject = Subjects.query.filter_by(name=subject_name).first()
+            subject.name = form.name.data
+            db.session.commit()
+            return render_template("subjects.html", data=select_result, form=form)
+
     return render_template("subjects.html", data=select_result, form=form)
 
 
@@ -103,7 +114,7 @@ def subjects():
         if selected_name is not None:
             selected_row = Subjects.query.filter_by(name=selected_name).first()
             session['subject_edit_pk_data'] = selected_name
-            return render_template("edit_subject.html", row=selected_row, form=form)
+            return render_template("subjects.html", row=selected_row, form=form)
 
         print(form.validate())
         if not form.validate():
@@ -122,12 +133,51 @@ def subjects():
 def edit_subject2():
     form = Subjects2Form()
     select_result = Subjects2.query.filter_by().all()
+
+    if request.method == 'POST':
+        if not form.validate():
+            flash('All fields are required.')
+            return render_template('edit_subject2.html')
+        else:
+            subject2_predmet = session['subject2_edit_pk_data']
+            subject2 = Subjects2.query.filter_by(predmet=subject2_predmet).first()
+            subject2.predmet = form.predmet.data
+            db.session.commit()
+            return render_template("subjects2.html", data=select_result, form=form)
+
     return render_template("subjects2.html", data=select_result, form=form)
+
 @app.route('/subjects2', methods=['GET', 'POST'])
 def subjects2():
 
     form = Subjects2Form()
     select_result = Subjects2.query.filter_by().all()
+    if request.method == 'POST':
+
+        selected_predmet = request.form.get('del')
+        if selected_predmet is not None:
+            selected_row = Subjects.query.filter_by(predmet=selected_predmet).first()
+            db.session.delete(selected_row)
+            db.session.commit()
+            select_result.remove(selected_row)
+            return render_template('subjects2.html', data=select_result, form=form)
+
+        selected_predmet = request.form.get('edit')
+        if selected_predmet is not None:
+            selected_row = Subjects2.query.filter_by(predmet=selected_predmet).first()
+            session['subject2_edit_pk_data'] = selected_predmet
+            return render_template("subjects2.html", row=selected_row, form=form)
+
+        print(form.validate())
+        if not form.validate():
+            flash('All fields are required.')
+            return render_template('subjects2.html', data=select_result, form=form)
+        else:
+            subject2 = Subjects2(form.predmet.data)
+            db.session.add(subject2)
+            db.session.commit()
+            select_result.append(subject2)
+
     return render_template('subjects2.html', data=select_result, form=form)
 
 
