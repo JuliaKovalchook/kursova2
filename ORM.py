@@ -42,7 +42,7 @@ class Subjects2(db.Model):
 
     def __repr__(self):
 
-        return 'Subject: name=%r' % self.predmet
+        return 'Subject: predmet=%r' % self.predmet
 
 class StudentStatus(db.Model):
 
