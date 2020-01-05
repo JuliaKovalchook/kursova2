@@ -255,7 +255,6 @@ def edit_subjectsheet():
 
     form = SubjectSheetForm()
     select_result = SubjectSheet.query.filter_by().all()
-
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required')
@@ -277,16 +276,13 @@ def edit_subjectsheet():
             subjectsheet.mark = form.mark.data
             db.session.commit()
             return render_template("subjectsheet.html", data=select_result, form=form)
-
     return render_template("subjectsheet.html", data=select_result, form=form)
 
 
 @app.route('/subjectsheet', methods=['GET', 'POST'])
 def subjectsheet():
-
     form = SubjectSheetForm()
     select_result = SubjectSheet.query.filter_by().all()
-
     if request.method == 'POST':
 
         selected_pk_data = request.form.get('del')
@@ -327,7 +323,6 @@ def subjectsheet():
             db.session.add(subjectsheet)
             db.session.commit()
             select_result.append(subjectsheet)
-
     return render_template('subjectsheet.html', data=select_result, form=form)
 
 
@@ -336,13 +331,11 @@ def edit_provider():
 
     form = ProvidersForm()
     select_result = Providers.query.filter_by().all()
-
-
     return render_template("providers.html", data=select_result, form=form)
 
 
 @app.route('/providers', methods=['GET', 'POST'])
-def Providers():
+def providers():
 
     form = ProvidersForm()
     select_result = Providers.query.filter_by().all()
