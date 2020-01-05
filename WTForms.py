@@ -1,3 +1,4 @@
+'''
 from flask_wtf import Form
 from wtforms import StringField, FloatField, SubmitField, DateField, Label
 from wtforms import validators
@@ -9,7 +10,7 @@ class GroupsForm(Form):
 
     submit = SubmitField("Enter")
 
-'''
+
 class ProviderForm(Form):
 
     Name_Provider = StringField("Name_Provider: ", [validators.data_required("Please, enter a Name_Provider.")])
@@ -17,7 +18,7 @@ class ProviderForm(Form):
 
     submit = SubmitField("Enter")
 
-'''
+
 class SubjectsForm(Form):
 
     name = StringField("Name: ", [validators.data_required("Please, enter a name of the subject.")])
@@ -44,3 +45,6 @@ class SubjectSheetForm(Form):
     mark = FloatField("Mark: ", [validators.data_required("Please, enter the mark.")])
 
     submit = SubmitField("Enter")
+
+
+'''
