@@ -1,4 +1,4 @@
-INSERT INTO Groups VALUES('KM-61');
+INSERT INTO Groups VALUES('Km-61');
 INSERT INTO Groups VALUES('KM-62');
 INSERT INTO Groups VALUES('KM-63');
 INSERT INTO Groups VALUES('KM-64');
@@ -8,7 +8,7 @@ INSERT INTO Subjects VALUES('English');
 INSERT INTO Subjects VALUES('Ukrainian');
 INSERT INTO Subjects VALUES('Turkish');
 
-INSERT INTO Students VALUES('Volodymyr', 'Drapak', 'KM6103', 'TBD', 'TBD', 'KM-61');
+INSERT INTO Students VALUES('best', 'frends', 'KM6103', 'TBD', 'TBD', 'KM-61');
 INSERT INTO Students VALUES('Random', 'Guy', 'KM6200', 'TBD', 'TBD', 'KM-62');
 INSERT INTO Students VALUES('Always', 'Absent', 'KM6250', 'bad', 'otchislen', 'KM-63');
 
@@ -54,10 +54,10 @@ SET group_code = 'KM-71'
 WHERE destiny = 'otchislen';
 UPDATE Students
 SET destiny = 'scholarship'
-WHERE first_name = 'Volodymyr' AND last_name = 'Drapak';
+WHERE first_name = 'best' AND last_name = 'frends';
 UPDATE Students
 SET group_code = 'KM-62'
-WHERE first_name = 'Volodymyr' AND last_name = 'Drapak';
+WHERE first_name = 'best' AND last_name = 'frends';
 
 UPDATE SubjectSheet
 SET mark = 110
