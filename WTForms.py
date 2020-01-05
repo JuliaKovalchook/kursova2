@@ -1,6 +1,6 @@
 
 from flask_wtf import Form
-from wtforms import StringField, FloatField, SubmitField, DateField, Label
+from wtforms import StringField, IntegerField, FloatField, SubmitField, DateField, Label
 from wtforms import validators
 
 
@@ -60,7 +60,7 @@ class SubjectSheetForm(Form):
 class productsForm(Form):
 
     name_product = StringField("name_product: ", [validators.data_required("Please, enter a name of the subject.")])
-    price = StringField("price: ", [validators.data_required("Please, enter a group code of the student.")])
+    price = IntegerField("price: ", [validators.data_required("Please, enter a group code of the student.")])
     provider_name_provider = StringField("provider_name_provider: ", [validators.data_required("Please, enter a study book of the student.")])
 
     submit = SubmitField("Enter")
