@@ -44,6 +44,32 @@ class Subjects2(db.Model):
 
         return 'Subject: predmet=%r' % self.predmet
 
+class StudentStatus(db.Model):
+
+    __tablename__ = 'studentstatus'
+    group_code = db.Column('group_code', db.String(64), db.ForeignKey('students.group_code'), primary_key=True)
+    study_book = db.Column('study_book', db.String(64), db.ForeignKey('students.study_book'), primary_key=True)
+    actual_date = db.Column('actual_date', db.String(64), primary_key=True)
+    status = db.Column('status', db.String(64))
+    destiny = db.Column('destiny', db.String(64))
+    student_group = db.relationship('Students', backref='status_group', lazy=True,
+                              foreign_keys=[group_code])
+    student_spook = db.relationship('Students', backref='status_spook', lazy=True,
+                              foreign_keys=[study_book])
+
+    def __init__(self, study_book, group_code, actual_date, status, destiny):
+
+        self.study_book = study_book
+        self.group_code = group_code
+        self.actual_date = actual_date
+        self.status = status
+        self.destiny = destiny
+
+    def __repr__(self):
+
+        return '<StudentStatus: study_book=%r; group_code=%r; actual_date=%r; status=%r; destiny=%r>' %\
+               self.study_book, self.group_code, self.actual_date, self.status, self.destiny
+
 
 class SubjectSheet(db.Model):
 
@@ -72,6 +98,47 @@ class SubjectSheet(db.Model):
                self.subj_name, self.group_code, self.study_book, self.date_of_mark, self.mark
 
 
+class GroupSubject(db.Model):
+
+    __tablename__ = 'group_subject'
+    group_code = db.Column('group_code', db.String(64), db.ForeignKey('groups.code'), primary_key=True)
+    subj_name = db.Column('subj_name', db.String(64), db.ForeignKey('subjects.name'), primary_key=True)
+    year = db.Column('year', db.Integer, primary_key=True)
+    semester = db.Column('semester', db.Integer, primary_key=True)
+
+    def __init__(self, group_code, subj_name, year, semester):
+
+        self.group_code = group_code
+        self.subj_name = subj_name
+        self.year = year
+        self.semester = semester
+
+    def __repr__(self):
+
+        return '<GroupSubject: group_code=%r; subj_name=%r; year=%r; semester=%r>' %\
+               self.group_code, self.subj_name, self.year, self.semester
+
+
+class SubjectsMarks(db.Model):
+
+    __tablename__ = 'subjects_marks'
+
+    subj_name = db.Column('subj_name', db.String(64), db.ForeignKey('subjects.name'), primary_key=True)
+    curr_max_mark = db.Column('curr_max_mark', db.String(64))
+    actual_date = db.Column('actual_date', db.Date, primary_key=True)
+
+    def __init__(self, subj_name, curr_max_mark, actual_date):
+
+        self.subj_name = subj_name
+        self.curr_max_mark = curr_max_mark
+        self.actual_date = actual_date
+
+    def __repr__(self):
+
+        return '<SubjectsMarks: subj_name=%r; curr_max_mark=%r; actual_date=%r>' %\
+               self.subj_name, self.curr_max_mark, self.actual_date
+
+
 class Students(db.Model):
 
     __tablename__ = 'students'
@@ -98,9 +165,6 @@ class Providers(db.Model):
     __tablename__ = 'providers'
     name_provider = db.Column('name_provider', db.String(64), primary_key=True)
     type_product = db.Column('type_product', db.String(64), nullable=False)
-    '''
-    products = db.relationship('Products', backref='providers', lazy='dynamic')
-'''
 
     def __init__(self, name_provider, type_product):
 

@@ -343,6 +343,21 @@ def providers():
 
 
 
+@app.route('/edit_provider', methods=['GET', 'POST'])
+def edit_provider():
+
+    form = ProvidersForm()
+    select_result = Providers.query.filter_by().all()
+    return render_template("providers.html", data=select_result, form=form)
+
+
+@app.route('/providers', methods=['GET', 'POST'])
+def providers():
+
+    form = ProvidersForm()
+    select_result = Providers.query.filter_by().all()
+    return render_template('providers.html', data=select_result, form=form)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

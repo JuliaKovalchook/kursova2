@@ -1,6 +1,6 @@
 
 from flask_wtf import Form
-from wtforms import StringField, IntegerField, FloatField, SubmitField, DateField, Label
+from wtforms import StringField, FloatField, SubmitField, DateField, Label
 from wtforms import validators
 
 
@@ -55,7 +55,5 @@ class SubjectSheetForm(Form):
     mark = FloatField("Mark: ", [validators.data_required("Please, enter the mark.")])
 
     submit = SubmitField("Enter")
-
-
 
 
