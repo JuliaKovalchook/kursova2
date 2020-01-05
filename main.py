@@ -88,6 +88,17 @@ def subjects():
 
     return render_template('subjects.html', data=select_result, form=form)
 
+@app.route('/edit_subject2', methods=['GET', 'POST'])
+def edit_subject():
+    form = Subjects2Form()
+    select_result = Subjects2.query.filter_by().all()
+    return render_template("subjects2.html", data=select_result, form=form)
+@app.route('/subjects2', methods=['GET', 'POST'])
+def subjects():
+
+    form = Subjects2Form()
+    select_result = Subjects2.query.filter_by().all()
+    return render_template('subjects2.html', data=select_result, form=form)
 
 
 @app.route('/edit_student', methods=['GET', 'POST'])
