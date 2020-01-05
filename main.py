@@ -340,7 +340,7 @@ def edit_provider():
             selected_name_provider = selected_pk_data_list[0]
             selected_type_product = selected_pk_data_list[1]
             print(selected_name_provider, selected_type_product)
-            provider = Providers.query.filter_by(ame_provider=selected_name_provider, type_product=selected_type_product).first()
+            provider = Providers.query.filter_by(name_provider=selected_name_provider, type_product=selected_type_product).first()
             provider.name_provider = form.name_provider.data
             provider.type_product = form.type_product.data
             db.session.commit()
