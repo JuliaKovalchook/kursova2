@@ -39,9 +39,9 @@
                   <div class="border p-1 m-1">
                       <form action = "/providers" method = post>
                           <p>
-                            {{row.Name_Provider, row.type_product}}
-                            <button name="del" type="submit" class="mh-100 del" value="{{row.Name_Provider}}█{{row.type_product}}">Delete</button>
-                            <button name="edit" type="submit" class="mh-100 edit" value="{{row.Name_Provider}}█{{row.type_product}}">Edit</button>
+                            {{row.name_provider, row.type_product}}
+                            <button name="del" type="submit" class="mh-100 del" value="{{row.name_provider}}█{{row.type_product}}">Delete</button>
+                            <button name="edit" type="submit" class="mh-100 edit" value="{{row.name_provider}}█{{row.type_product}}">Edit</button>
                           </p>
                       </form>
                   </div>
@@ -54,7 +54,7 @@
            <legend>Add a Provider</legend>
            <div style = font-size:20px; font-weight:bold; margin-left:150px;>
               <div>
-                  {{ form.Name_Provider.label }}      {{ form.Name_Provider }}
+                  {{ form.name_provider.label }}      {{ form.name_provider }}
                   {{ form.type_product.label }}      {{ form.type_product }}
               </div>
 

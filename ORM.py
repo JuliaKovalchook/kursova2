@@ -163,15 +163,15 @@ class Students(db.Model):
 class Providers(db.Model):
 
     __tablename__ = 'Providers'
-    Name_Provider = db.Column('Name_Provider', db.String(64), primary_key=True)
+    name_provider = db.Column('Name_Provider', db.String(64), primary_key=True)
     type_product = db.Column('type_product', db.String(64), nullable=False)
 
-    def __init__(self, Name_Provider, type_product):
+    def __init__(self, name_provider, type_product):
 
-        self.Name_Provider = Name_Provider
+        self.name_provider = name_provider
         self.type_product = type_product
 
     def __repr__(self):
 
-        return '<Provider: Name_Provider=%r; type_product=%r>' % \
-               self.Name_Provider, self.type_product
+        return '<Provider: name_provider=%r; type_product=%r>' % \
+               self.name_provider, self.type_product

@@ -40,7 +40,7 @@ class StudentsForm(Form):
 
 class Providers(Form):
 
-    Name_Provider = StringField("Name_Provider: ", [validators.data_required("Please, enter a first name of the student.")])
+    name_provider = StringField("name_provider: ", [validators.data_required("Please, enter a first name of the student.")])
     type_product = StringField("type_product : ", [validators.data_required("Please, enter a last name of the student.")])
 
     submit = SubmitField("Enter")
