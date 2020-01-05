@@ -279,60 +279,59 @@ def subjectsheet():
 
     return render_template('subjectsheet.html', data=select_result, form=form)
 
+@app.route('/edit_Provider123', methods=['GET', 'POST'])
+def edit_Provider123():
 
-@app.route('/edit_provider123', methods = ['GET', 'POST'])
-def edit_provider123():
-
-    form = Provider123Form()
-    select_result = Provider123.query.filter_by().all()
+    form = Provider123sForm()
+    select_result = Provider123s.query.filter_by().all()
 
     if request.method == 'POST':
         if not form.validate():
-            flash('All fields are required')
-            return render_template('Provider123.html', data=select_result, form=form)
+            flash('All fields are required.')
+            return render_template('edit_Provider123.html')
         else:
-            provider123_Name_Provider123 = session['provider123_edit_pk_data']
-            provider123 = Provider123.query.filter_by(Name_Provider123=provider123_Name_Provider123).first()
-            provider123.Name_Provider123 = form.Name_Provider123.data
+            Provider123_Name_Provider123 = session['Provider123_edit_pk_data']
+            Provider123 = Provider123s.query.filter_by(Name_Provider123=Provider123_Name_Provider123).first()
+            Provider123.Name_Provider123 = form.Name_Provider123.data
             db.session.commit()
-            return render_template("Provider123.html", data=select_result, form=form)
+            return render_template("Provider123s.html", data=select_result, form=form)
 
-    return render_template("Provider123.html", data=select_result, form=form)
+    return render_template("Provider123s.html", data=select_result, form=form)
 
 
-@app.route('/Provider123', methods=['GET', 'POST'])
-def Provider123():
+@app.route('/Provider123s', methods=['GET', 'POST'])
+def Provider123s():
 
-    form = Provider123Form()
-    select_result = Provider123.query.filter_by().all()
+    form = Provider123sForm()
+    select_result = Provider123s.query.filter_by().all()
 
     if request.method == 'POST':
 
         selected_Name_Provider123 = request.form.get('del')
         if selected_Name_Provider123 is not None:
-            selected_row = Provider123.query.filter_by(Name_Provider123=selected_Name_Provider123).first()
+            selected_row = Provider123s.query.filter_by(Name_Provider123=selected_Name_Provider123).first()
             db.session.delete(selected_row)
             db.session.commit()
             select_result.remove(selected_row)
-            return render_template('Provider123.html', data=select_result, form=form)
+            return render_template('Provider123s.html', data=select_result, form=form)
 
         selected_Name_Provider123 = request.form.get('edit')
         if selected_Name_Provider123 is not None:
-            selected_row = Provider123.query.filter_by(Name_Provider123=selected_Name_Provider123).first()
-            session['provider123_edit_pk_data'] = selected_Name_Provider123
-            return render_template("edit_provider123.html", row=selected_row, form=form)
+            selected_row = Provider123s.query.filter_by(Name_Provider123=selected_Name_Provider123).first()
+            session['Provider123_edit_pk_data'] = selected_Name_Provider123
+            return render_template("edit_Provider123.html", row=selected_row, form=form)
 
         print(form.validate())
         if not form.validate():
             flash('All fields are required.')
-            return render_template('Provider123.html', data=select_result, form=form)
+            return render_template('Provider123s.html', data=select_result, form=form)
         else:
-            provider123 = Provider123(form.Name_Provider123.data)
-            db.session.add(provider123)
+            Provider123 = Provider123s(form.Name_Provider123.data)
+            db.session.add(Provider123)
             db.session.commit()
-            select_result.append(provider123)
+            select_result.append(Provider123)
 
-    return render_template('Provider123.html', data=select_result, form=form)
+    return render_template('Provider123s.html', data=select_result, form=form)
 
 
 

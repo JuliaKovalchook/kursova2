@@ -19,20 +19,6 @@ class Groups(db.Model):
     def __repr__(self):
         return '<Group: code=%r>' % self.code
 
-class Provider(db.Model):
-
-    __tablename__ = 'Provider123'
-    Name_Provider123 = db.Column('Name_Provider123', db.String(30), primary_key=True)
-
-    def __init__(self, Name_Provider123):
-        self.Name_Provider123 = Name_Provider123
-
-    def __repr__(self):
-        return '<Provider123: Name_Provider123=%r; > ' % self.Name_Provider123
-
-
-
-
 class Subjects(db.Model):
 
     __tablename__ = 'subjects'
@@ -49,6 +35,18 @@ class Subjects(db.Model):
 
         return 'Subject: name=%r' % self.name
 
+class Provider123s(db.Model):
+
+    __tableName_Provider123__ = 'Provider123s'
+    Name_Provider123 = db.Column('Name_Provider123', db.String(64), primary_key=True)
+
+    def __init__(self, Name_Provider123):
+
+        self.Name_Provider123 = Name_Provider123
+
+    def __repr__(self):
+
+        return 'Provider123: Name_Provider123=%r' % self.Name_Provider123
 
 class StudentStatus(db.Model):
 
