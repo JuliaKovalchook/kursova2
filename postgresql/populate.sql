@@ -5,7 +5,11 @@ INSERT INTO Groups VALUES('KM-64');
 
 INSERT INTO Subjects VALUES('Math');
 INSERT INTO Subjects VALUES('English');
-INSERT INTO Subjects VALUES('Ukrainian');
+CREATE TABLE Subjects2(predmet text);
+ALTER TABLE Subjects2
+ADD CONSTRAINT predmet_pk PRIMARY KEY(predmet);
+
+INSERT INTO Subjects2 VALUES('test');
 INSERT INTO Subjects VALUES('Turkish');
 
 INSERT INTO Students VALUES('Volodymyr', 'Drapak', 'KM6103', 'TBD', 'TBD', 'KM-61');
