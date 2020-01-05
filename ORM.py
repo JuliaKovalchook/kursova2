@@ -177,3 +177,22 @@ class Providers(db.Model):
                self.name_provider, self.type_product
 
 
+
+class Products(db.Model):
+
+    __tablename__ = 'products'
+    name_product = db.Column('name_product', db.String(64), primary_key=True)
+    price = db.Column('price', db.String(64), nullable=False)
+    provider_name_provider = db.Column('provider_name_provider', db.String(64), db.ForeignKey('providers.name_provider'), primary_key=True)
+
+    def __init__(self, name_product, price, provider_name_provider):
+
+        self.name_product = name_product
+        self.price = price
+        self.provider_name_provider = provider_name_provider
+
+    def __repr__(self):
+
+        return '<Product: name_product=%r; price=%r; provider_name_provider=%r>' % \
+               self.name_product, self.price, self.provider_name_provider
+
