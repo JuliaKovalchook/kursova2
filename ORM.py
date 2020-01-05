@@ -185,6 +185,7 @@ class Products(db.Model):
     name_product = db.Column('name_product', db.String(64), primary_key=True)
     price = db.Column('price', db.String(64), nullable=False)
     provider_name_provider = db.Column('provider_name_provider', db.String(64), db.ForeignKey('providers.name_provider'), primary_key=True)
+    advs = db.relationship('Advs', backref='products', lazy='dynamic')
 
     def __init__(self, name_product, price, provider_name_provider):
 
@@ -196,4 +197,22 @@ class Products(db.Model):
 
         return '<Product: name_product=%r; price=%r; provider_name_provider=%r>' % \
                self.name_product, self.price, self.provider_name_provider
+
+class Advs(db.Model):
+
+    __tablename__ = 'advs'
+    name_adv = db.Column('name_adv', db.String(64), primary_key=True)
+    description = db.Column('description', db.String(200), nullable=False)
+    products_name_product = db.Column('products_name_product', db.String(64), db.ForeignKey('products.name_product'), primary_key=True)
+
+    def __init__(self, name_adv, description, products_name_product):
+
+        self.name_adv = name_adv
+        self.description = description
+        self.products_name_product = products_name_product
+
+    def __repr__(self):
+
+        return '<Adv: name_adv=%r; description=%r; products_name_product=%r>' % \
+               self.name_adv, self.description, self.products_name_product
 

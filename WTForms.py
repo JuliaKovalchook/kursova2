@@ -67,4 +67,14 @@ class ProductsForm(Form):
 
 
 
+class AdvsForm(Form):
+
+    name_adv = StringField("name_adv: ", [validators.data_required("Please, enter a name of the subject.")])
+    description = StringField("description: ", [validators.data_required("Please, enter a group code of the student.")])
+    products_name_product = StringField("products_name_product: ", [validators.data_required("Please, enter a study book of the student.")])
+
+    submit = SubmitField("Enter")
+
+
+
 

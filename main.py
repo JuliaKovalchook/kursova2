@@ -357,5 +357,21 @@ def products():
     return render_template('products.html', data=select_result, form=form)
 
 
+
+@app.route('/edit_adv', methods=['GET', 'POST'])
+def edit_adv():
+
+    form = AdvsForm()
+    select_result = Advs.query.filter_by().all()
+    return render_template('advs.html', data=select_result, form=form)
+
+
+@app.route('/advs', methods=['GET', 'POST'])
+def advs():
+
+    form = AdvsForm()
+    select_result = Advs.query.filter_by().all()
+    return render_template('advs.html', data=select_result, form=form)
+
 if __name__ == '__main__':
     app.run(debug=True)
