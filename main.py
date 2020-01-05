@@ -13,7 +13,6 @@ from WTForms import *
 
 app.secret_key = 'development key'
 
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
 
@@ -130,6 +129,7 @@ def subjects():
     return render_template('subjects.html', data=select_result, form=form)
 
 
+
 @app.route('/edit_student', methods=['GET', 'POST'])
 def edit_student():
 
@@ -151,7 +151,7 @@ def edit_student():
             student.study_book = form.study_book.data
             student.group_code = form.group_code.data
             db.session.commit()
-            return render_template("students.html", data=select_result, form=form)
+
 
     return render_template("students.html", data=select_result, form=form)
 
@@ -196,6 +196,88 @@ def students():
             select_result.append(student)
 
     return render_template('students.html', data=select_result, form=form)
+
+
+
+@app.route('/edit_subjectsheet', methods=['GET', 'POST'])
+def edit_subjectsheet():
+
+    form = SubjectSheetForm()
+    select_result = SubjectSheet.query.filter_by().all()
+
+    if request.method == 'POST':
+        if not form.validate():
+            flash('All fields are required')
+            return render_template('subjectsheet.html', data=select_result, form=form)
+        else:
+            selected_pk_data_list = session['subjectsheet_edit_pk_data'].split("█")
+            selected_subj_name = selected_pk_data_list[0]
+            selected_group_code = selected_pk_data_list[1]
+            selected_spooky_book = selected_pk_data_list[2]
+            selected_date_of_mark = selected_pk_data_list[3]
+            subjectsheet = SubjectSheet.query.filter_by(subj_name=selected_subj_name,
+                                                        study_book=selected_spooky_book,
+                                                        group_code=selected_group_code,
+                                                        date_of_mark=selected_date_of_mark).first()
+            subjectsheet.subj_name = form.subj_name.data
+            subjectsheet.group_code = form.group_code.data
+            subjectsheet.study_book = form.study_book.data
+            subjectsheet.date_of_mark = form.date_of_mark.data
+            subjectsheet.mark = form.mark.data
+            db.session.commit()
+            return render_template("subjectsheet.html", data=select_result, form=form)
+
+    return render_template("subjectsheet.html", data=select_result, form=form)
+
+
+@app.route('/subjectsheet', methods=['GET', 'POST'])
+def subjectsheet():
+
+    form = SubjectSheetForm()
+    select_result = SubjectSheet.query.filter_by().all()
+
+    if request.method == 'POST':
+
+        selected_pk_data = request.form.get('del')
+        if selected_pk_data is not None:
+            selected_pk_data = selected_pk_data.split("█")
+            selected_subj_name = selected_pk_data[0]
+            selected_group_code = selected_pk_data[1]
+            selected_spooky_book = selected_pk_data[2]
+            selected_date_of_mark = selected_pk_data[3]
+            selected_row = SubjectSheet.query.filter_by(subj_name=selected_subj_name, group_code=selected_group_code,
+                                                    study_book=selected_spooky_book, date_of_mark=selected_date_of_mark).first()
+            db.session.delete(selected_row)
+            db.session.commit()
+            select_result.remove(selected_row)
+            return render_template('subjectsheet.html', data=select_result, form=form)
+
+        selected_pk_data = request.form.get('edit')
+        if selected_pk_data is not None:
+            selected_pk_data_list = selected_pk_data.split("█")
+            selected_subj_name = selected_pk_data_list[0]
+            selected_group_code = selected_pk_data_list[1]
+            selected_spooky_book = selected_pk_data_list[2]
+            selected_date_of_mark = selected_pk_data_list[3]
+            selected_row = SubjectSheet.query.filter_by(subj_name=selected_subj_name,
+                                                        study_book=selected_spooky_book,
+                                                        group_code=selected_group_code,
+                                                        date_of_mark=selected_date_of_mark).first()
+            session['subjectsheet_edit_pk_data'] = selected_pk_data
+            return render_template("edit_subjectsheet.html", row=selected_row, form=form)
+
+        print(form.validate())
+        if not form.validate():
+            flash('All fields are required.')
+            return render_template('subjectsheet.html', data=select_result, form=form)
+        else:
+            subjectsheet = SubjectSheet(form.subj_name.data, form.group_code.data, form.study_book.data,
+                                        form.date_of_mark.data, form.mark.data)
+            db.session.add(subjectsheet)
+            db.session.commit()
+            select_result.append(subjectsheet)
+
+    return render_template('subjectsheet.html', data=select_result, form=form)
 
 
 

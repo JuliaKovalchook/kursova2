@@ -12,11 +12,12 @@ class GroupsForm(Form):
 '''
 class ProviderForm(Form):
 
-    Name_Provider = StringField("Provider: ", [validators.data_required("Please, enter a Name_Provider.")])
+    Name_Provider = StringField("Name_Provider: ", [validators.data_required("Please, enter a Name_Provider.")])
+    type_product = StringField("type_product: ", [validators.data_required("Please, enter a type_product.")])
 
     submit = SubmitField("Enter")
-'''
 
+'''
 class SubjectsForm(Form):
 
     name = StringField("Name: ", [validators.data_required("Please, enter a name of the subject.")])
