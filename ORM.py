@@ -37,7 +37,7 @@ class Subjects(db.Model):
 
 class Provider123s(db.Model):
 
-    __tableName_Provider123__ = 'Provider123s'
+    __tablename__ = 'Provider123s'
     Name_Provider123 = db.Column('Name_Provider123', db.String(64), primary_key=True)
 
     def __init__(self, Name_Provider123):
