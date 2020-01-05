@@ -11,10 +11,9 @@ class GroupsForm(Form):
     submit = SubmitField("Enter")
 
 
-class ProviderForm(Form):
+class Provider123Form(Form):
 
-    Name_Provider = StringField("Name_Provider: ", [validators.data_required("Please, enter a Name_Provider.")])
-    type_product = StringField("type_product: ", [validators.data_required("Please, enter a type_product.")])
+    Name_Provider123 = StringField("Name_Provider123: ", [validators.data_required("Please, enter a Name_Provider123.")])
 
     submit = SubmitField("Enter")
 

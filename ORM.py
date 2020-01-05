@@ -21,17 +21,14 @@ class Groups(db.Model):
 
 class Provider(db.Model):
 
-    __tablename__ = 'Provider'
-    Name_Provider = db.Column('Name_Provider', db.String(30), primary_key=True)
-    type_product = db.Column('type_product', db.String(30), nullable=False)
+    __tablename__ = 'Provider123'
+    Name_Provider123 = db.Column('Name_Provider123', db.String(30), primary_key=True)
 
-    def __init__(self, Name_Provider, type_product):
-        self.Name_Provider = Name_Provider
-        self.type_product = type_product
+    def __init__(self, Name_Provider123):
+        self.Name_Provider123 = Name_Provider123
 
     def __repr__(self):
-        return '<Provider: Name_Provider=%r; type_product=%r> ' % \
-           self.Name_Provider, self.type_product
+        return '<Provider123: Name_Provider123=%r; > ' % self.Name_Provider123
 
 
 
