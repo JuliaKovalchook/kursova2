@@ -220,11 +220,11 @@ class Advs(db.Model):
 class Viewers(db.Model):
 
     __tablename__ = 'viewers'
-    email = db.Column('email', db.varchar(50), primary_key=True)
-    nikname = db.Column('nikname', db.varchar(30), nullable=False)
-    firstname = db.Column('firstname', db.varchar(30))
-    lastname = db.Column('lastname', db.varchar(30))
-    country = db.Column('country', db.varchar(50))
+    email = db.Column('email', db.String(50), primary_key=True)
+    nikname = db.Column('nikname', db.String(30), nullable=False)
+    firstname = db.Column('firstname', db.String(30))
+    lastname = db.Column('lastname', db.String(30))
+    country = db.Column('country', db.String(50))
 
 
 
