@@ -225,7 +225,7 @@ class Viewers(db.Model):
     firstname = db.Column('firstname', db.varchar(30))
     lastname = db.Column('lastname', db.varchar(30))
     country = db.Column('country', db.varchar(50))
-    age = db.Column('age', db.int)
+    age = db.Column('age', db.Integer)
 
 
 
