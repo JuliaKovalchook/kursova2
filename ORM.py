@@ -32,17 +32,6 @@ class Subjects(db.Model):
         return 'Subject: name=%r' % self.name
 
 
-class Subjects2(db.Model):
-
-    __tablename__ = 'subjects2'
-    predmet = db.Column('predmet', db.String(64), primary_key=True)
-    def __init__(self, predmet):
-
-        self.predmet = predmet
-
-    def __repr__(self):
-
-        return 'Subject: predmet=%r' % self.predmet
 
 class StudentStatus(db.Model):
 

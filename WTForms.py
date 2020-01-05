@@ -20,13 +20,6 @@ class SubjectsForm(Form):
 
 
 
-class Subjects2Form(Form):
-
-    predmet = StringField("Predmet: ", [validators.data_required("Please, enter a name of the predmet.")])
-
-    submit = SubmitField("Enter")
-
-
 
 class StudentsForm(Form):
 
