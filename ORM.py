@@ -165,7 +165,7 @@ class Providers(db.Model):
     __tablename__ = 'providers'
     name_provider = db.Column('name_provider', db.String(64), primary_key=True)
     type_product = db.Column('type_product', db.String(64), nullable=False)
-    products = db.relationship('products', backref='providers', lazy='dynamic')
+    products = db.relationship('Products', backref='providers', lazy='dynamic')
 
 
     def __init__(self, name_provider, type_product):
@@ -181,7 +181,7 @@ class Providers(db.Model):
 
 
 
-class products(db.Model):
+class Products(db.Model):
 
     __tablename__ = 'products'
     name_product = db.Column('name_product', db.String(64), primary_key=True)

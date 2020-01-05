@@ -57,7 +57,7 @@ class SubjectSheetForm(Form):
     submit = SubmitField("Enter")
 
 
-class productsForm(Form):
+class ProductsForm(Form):
 
     name_product = StringField("name_product: ", [validators.data_required("Please, enter a name of the subject.")])
     price = StringField("price: ", [validators.data_required("Please, enter a group code of the student.")])
