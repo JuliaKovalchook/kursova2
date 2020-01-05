@@ -18,11 +18,6 @@ class Provider123sForm(Form):
     submit = SubmitField("Enter")
 
 
-class SubjectsForm(Form):
-
-    name = StringField("Name: ", [validators.data_required("Please, enter a name of the subject.")])
-
-    submit = SubmitField("Enter")
 
 
 class StudentsForm(Form):
