@@ -18,18 +18,23 @@ class Groups(db.Model):
         self.code = code
     def __repr__(self):
         return '<Group: code=%r>' % self.code
-'''
+
 class Provider(db.Model):
 
     __tablename__ = 'Provider'
     Name_Provider = db.Column('Name_Provider', db.String(30), primary_key=True)
-    type_product = db.relationship('Students', backref='Name_Provider', lazy='dynamic')
+    type_product = db.Column('type_product', db.String(30), nullable=False)
 
-    def __init__(self, Name_Provider):
+    def __init__(self, Name_Provider, type_product):
         self.Name_Provider = Name_Provider
+        self.type_product = type_product
+
     def __repr__(self):
-        return '<Provider: Name_Provider=%r>' % self.Name_Provider
-'''
+        return '<Provider: Name_Provider=%r; type_product=%r> ' % \
+           self.Name_Provider, self.type_product
+
+
+
 
 class Subjects(db.Model):
 

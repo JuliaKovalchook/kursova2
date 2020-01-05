@@ -281,5 +281,76 @@ def subjectsheet():
 
 
 
+
+'''
+'''
+
+
+@app.route('/provider', methods=['GET', 'POST'])
+def provider():
+    form = ProviderForm()
+    select_result = Provider.query.filter_by().all()
+
+    if request.method == 'POST':
+        selected_pk_data = request.form.get('del')
+        if selected_pk_data is not None:
+            selected_pk_data = selected_pk_data.split("█")
+            selected_Name_Provider = selected_pk_data[0]
+            selected_type_product = selected_pk_data[1]
+            print(selected_Name_Provider, selected_type_product)
+            provider = Students.query.filter_by(Name_Provider=selected_Name_Provider,
+                                                type_product=selected_type_product).first()
+            provider.Name_Provider = form.Name_Provider.data
+            provider.type_product = form.type_product.data
+            db.session.commit()
+            return render_template("provider.html", data=select_result, form=form)
+
+        selected_pk_data = request.form.get('edit')
+        if selected_pk_data is not None:
+            selected_pk_data_list = selected_pk_data.split("█")
+            selected_Name_Provider = selected_pk_data_list[0]
+            selected_type_product = selected_pk_data_list[1]
+            selected_row = Students.query.filter_by(Name_Provider=selected_Name_Provider,
+                                                    type_product=selected_type_product).first()
+            session['provider_edit_pk_data'] = selected_pk_data
+            return render_template("edit_provider.html", row=selected_row, form=form)
+
+        print(form.validate())
+        if not form.validate():
+            flash('All fields are required.')
+            return render_template('provider.html', data=select_result, form=form)
+        else:
+            provider = Provider(form.Name_Provider.data, form.type_product.data)
+            db.session.add(provider)
+            db.session.commit()
+            select_result.append(provider)
+
+    return render_template('provider.html', data=select_result, form=form)
+
+
+@app.route('/edit_provider', methods=['GET', 'POST'])
+def edit_provider():
+    form = ProviderForm()
+    select_result = Provider.query.filter_by().all()
+
+    if request.method == 'POST':
+        if not form.validate():
+            flash('All fields are required')
+            return render_template('provider.html')
+        else:
+            selected_pk_data_list = session['provider_edit_pk_data'].split("█")
+            selected_Name_Provider = selected_pk_data_list[0]
+            selected_type_product = selected_pk_data_list[1]
+            print(selected_Name_Provider, selected_type_product)
+            provider = Provider.query.filter_by(Name_Provider=selected_Name_Provider,
+                                                type_product=selected_type_product).first()
+            provider.Name_Provider = form.Name_Provider.data
+            provider.type_product = form.type_product.data
+            db.session.commit()
+            return render_template("provider.html", data=select_result, form=form)
+
+    return render_template("provider.html", data=select_result, form=form)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
