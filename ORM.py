@@ -158,3 +158,20 @@ class Students(db.Model):
 
         return '<Student: first_name=%r; last_name=%r; study_book=%r; group_code=%r>' % \
                self.first_name, self.last_name, self.study_book, self.group_code
+
+
+class Providers(db.Model):
+
+    __tablename__ = 'Providers'
+    Name_Provider = db.Column('Name_Provider', db.String(64), primary_key=True)
+    type_product = db.Column('last_name', db.String(64), nullable=False)
+
+    def __init__(self, Name_Provider, type_product):
+
+        self.Name_Provider = Name_Provider
+        self.type_product = type_product
+
+    def __repr__(self):
+
+        return '<Provider: Name_Provider=%r; type_product=%r>' % \
+               self.Name_Provider, self.type_product

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Provider</title>
+  <title>Providers</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
@@ -28,23 +28,23 @@
 
 <div class="container">
 
-    <h1>Provider</h1>
+    <h1>Providers</h1>
 
           <div>
               {% for row in data %}
                   <div class="border p-1 m-1">
-                      <form action = "/provider" method = post>
+                      <form action = "/providers" method = post>
                           <p>
                             {{row.Name_Provider, row.type_product}}
-                            <button name="del" type="submit" class="mh-100 del" value="{{row.code}}">Delete</button>
-                            <button name="edit" type="submit" class="mh-100 edit" value="{{row.code}}">Edit</button>
+                            <button name="del" type="submit" class="mh-100 del" value="{{row.Name_Provider}}█{{row.type_product}}">Delete</button>
+                            <button name="edit" type="submit" class="mh-100 edit" value="{{row.Name_Provider}}█{{row.type_product}}">Edit</button>
                           </p>
                       </form>
                   </div>
               {% endfor %}
           </div>
 
-    <form action = "/provider" method = post>
+    <form action = "/providers" method = post>
        <fieldset>
            {{ form.hidden_tag() }}
            <legend>Add a Provider</legend>

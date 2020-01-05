@@ -38,6 +38,15 @@ class StudentsForm(Form):
     submit = SubmitField("Enter")
 
 
+
+class Providers(Form):
+
+    Name_Provider = StringField("Name_Provider: ", [validators.data_required("Please, enter a first name of the student.")])
+    type_product = StringField("type_product : ", [validators.data_required("Please, enter a last name of the student.")])
+
+    submit = SubmitField("Enter")
+
+
 class SubjectSheetForm(Form):
 
     subj_name = StringField("Subject Name: ", [validators.data_required("Please, enter a name of the subject.")])

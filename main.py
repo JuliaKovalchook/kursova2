@@ -331,6 +331,74 @@ def subjectsheet():
     return render_template('subjectsheet.html', data=select_result, form=form)
 
 
+@app.route('/edit_provider', methods=['GET', 'POST'])
+def edit_provider():
+
+    form = ProvidersForm()
+    select_result = Providers.query.filter_by().all()
+'''
+    if request.method == 'POST':
+        if not form.validate():
+            flash('All fields are required')
+            return render_template('students.html', data=select_result, form=form)
+        else:
+            selected_pk_data_list = session['student_edit_pk_data'].split("█")
+            selected_group_code = selected_pk_data_list[0]
+            selected_spooky_book = selected_pk_data_list[1]
+            print(selected_group_code, selected_spooky_book)
+            student = Students.query.filter_by(study_book=selected_spooky_book, group_code=selected_group_code).first()
+            student.first_name = form.first_name.data
+            student.last_name = form.last_name.data
+            student.study_book = form.study_book.data
+            student.group_code = form.group_code.data
+            db.session.commit()
+'''
+
+    return render_template("providers.html", data=select_result, form=form)
+
+
+@app.route('/providers', methods=['GET', 'POST'])
+def Providers():
+
+    form = ProvidersForm()
+    select_result = Providers.query.filter_by().all()
+'''
+    if request.method == 'POST':
+
+        selected_pk_data = request.form.get('del')
+        if selected_pk_data is not None:
+            selected_pk_data = selected_pk_data.split("█")
+            selected_group_code = selected_pk_data[0]
+            selected_spooky_book = selected_pk_data[1]
+            print(selected_spooky_book, selected_group_code)
+            selected_row = Students.query.filter_by(study_book=selected_spooky_book, group_code=selected_group_code).first()
+            db.session.delete(selected_row)
+            db.session.commit()
+            select_result.remove(selected_row)
+            return render_template('students.html', data=select_result, form=form)
+
+        selected_pk_data = request.form.get('edit')
+        if selected_pk_data is not None:
+            selected_pk_data_list = selected_pk_data.split("█")
+            selected_group_code = selected_pk_data_list[0]
+            selected_spooky_book = selected_pk_data_list[1]
+            selected_row = Students.query.filter_by(study_book=selected_spooky_book, group_code=selected_group_code).first()
+            session['student_edit_pk_data'] = selected_pk_data
+            return render_template("edit_student.html", row=selected_row, form=form)
+
+        print(form.validate())
+        if not form.validate():
+            flash('All fields are required.')
+            return render_template('students.html', data=select_result, form=form)
+        else:
+            student = Students(form.first_name.data, form.last_name.data, form.study_book.data, form.group_code.data)
+            db.session.add(student)
+            db.session.commit()
+            select_result.append(student)
+'''
+    return render_template('providers.html', data=select_result, form=form)
+
+
 
 
 if __name__ == '__main__':
