@@ -288,7 +288,7 @@ def edit_provider123():
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
-            return render_template('edit_provider123.html')
+            return render_template('provider123s.html')
         else:
             Provider123_Name_Provider123 = session['Provider123_edit_pk_data']
             Provider123 = Provider123s.query.filter_by(Name_Provider123=Provider123_Name_Provider123).first()
