@@ -74,7 +74,59 @@ def groups():
     return render_template('groups.html', data=select_result, form=form)
 
 
+@app.route('/edit_subject', methods=['GET', 'POST'])
+def edit_subject():
 
+    form = SubjectsForm()
+    select_result = Subjects.query.filter_by().all()
+
+    if request.method == 'POST':
+        if not form.validate():
+            flash('All fields are required.')
+            return render_template('edit_subject.html')
+        else:
+            subject_name = session['subject_edit_pk_data']
+            subject = Subjects.query.filter_by(name=subject_name).first()
+            subject.name = form.name.data
+            db.session.commit()
+            return render_template("subjects.html", data=select_result, form=form)
+
+    return render_template("subjects.html", data=select_result, form=form)
+
+
+@app.route('/subjects', methods=['GET', 'POST'])
+def subjects():
+
+    form = SubjectsForm()
+    select_result = Subjects.query.filter_by().all()
+
+    if request.method == 'POST':
+
+        selected_name = request.form.get('del')
+        if selected_name is not None:
+            selected_row = Subjects.query.filter_by(name=selected_name).first()
+            db.session.delete(selected_row)
+            db.session.commit()
+            select_result.remove(selected_row)
+            return render_template('subjects.html', data=select_result, form=form)
+
+        selected_name = request.form.get('edit')
+        if selected_name is not None:
+            selected_row = Subjects.query.filter_by(name=selected_name).first()
+            session['subject_edit_pk_data'] = selected_name
+            return render_template("edit_subject.html", row=selected_row, form=form)
+
+        print(form.validate())
+        if not form.validate():
+            flash('All fields are required.')
+            return render_template('subjects.html', data=select_result, form=form)
+        else:
+            subject = Subjects(form.name.data)
+            db.session.add(subject)
+            db.session.commit()
+            select_result.append(subject)
+
+    return render_template('subjects.html', data=select_result, form=form)
 
 
 
@@ -227,8 +279,8 @@ def subjectsheet():
 
     return render_template('subjectsheet.html', data=select_result, form=form)
 
-@app.route('/edit_Provider123', methods=['GET', 'POST'])
-def edit_Provider123():
+@app.route('/edit_provider123', methods=['GET', 'POST'])
+def edit_provider123():
 
     form = Provider123sForm()
     select_result = Provider123s.query.filter_by().all()
@@ -236,7 +288,7 @@ def edit_Provider123():
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required.')
-            return render_template('edit_Provider123.html')
+            return render_template('edit_provider123.html')
         else:
             Provider123_Name_Provider123 = session['Provider123_edit_pk_data']
             Provider123 = Provider123s.query.filter_by(Name_Provider123=Provider123_Name_Provider123).first()
@@ -267,7 +319,7 @@ def Provider123s():
         if selected_Name_Provider123 is not None:
             selected_row = Provider123s.query.filter_by(Name_Provider123=selected_Name_Provider123).first()
             session['Provider123_edit_pk_data'] = selected_Name_Provider123
-            return render_template("edit_Provider123.html", row=selected_row, form=form)
+            return render_template("edit_provider123.html", row=selected_row, form=form)
 
         print(form.validate())
         if not form.validate():
