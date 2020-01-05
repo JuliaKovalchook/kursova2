@@ -118,8 +118,6 @@ def edit_student():
 
 
     return render_template("students.html", data=select_result, form=form)
-
-
 @app.route('/students', methods=['GET', 'POST'])
 def students():
 
@@ -160,9 +158,6 @@ def students():
             select_result.append(student)
 
     return render_template('students.html', data=select_result, form=form)
-
-
-
 @app.route('/edit_subjectsheet', methods=['GET', 'POST'])
 def edit_subjectsheet():
 
@@ -192,8 +187,6 @@ def edit_subjectsheet():
             return render_template("subjectsheet.html", data=select_result, form=form)
 
     return render_template("subjectsheet.html", data=select_result, form=form)
-
-
 @app.route('/subjectsheet', methods=['GET', 'POST'])
 def subjectsheet():
 
@@ -248,18 +241,6 @@ def edit_provider123():
 
     form = Provider123sForm()
     select_result = Provider123s.query.filter_by().all()
-
-    if request.method == 'POST':
-        if not form.validate():
-            flash('All fields are required.')
-            return render_template('provider123s.html')
-        else:
-            Provider123_Name_Provider123 = session['Provider123_edit_pk_data']
-            Provider123 = Provider123s.query.filter_by(Name_Provider123=Provider123_Name_Provider123).first()
-            Provider123.Name_Provider123 = form.Name_Provider123.data
-            db.session.commit()
-            return render_template("Provider123s.html", data=select_result, form=form)
-
     return render_template("Provider123s.html", data=select_result, form=form)
 
 
@@ -268,32 +249,6 @@ def Provider123s():
 
     form = Provider123sForm()
     select_result = Provider123s.query.filter_by().all()
-
-    if request.method == 'POST':
-
-        selected_Name_Provider123 = request.form.get('del')
-        if selected_Name_Provider123 is not None:
-            selected_row = Provider123s.query.filter_by(Name_Provider123=selected_Name_Provider123).first()
-            db.session.delete(selected_row)
-            db.session.commit()
-            select_result.remove(selected_row)
-            return render_template('Provider123s.html', data=select_result, form=form)
-
-        selected_Name_Provider123 = request.form.get('edit')
-        if selected_Name_Provider123 is not None:
-            selected_row = Provider123s.query.filter_by(Name_Provider123=selected_Name_Provider123).first()
-            session['Provider123_edit_pk_data'] = selected_Name_Provider123
-            return render_template("edit_provider123.html", row=selected_row, form=form)
-
-        print(form.validate())
-        if not form.validate():
-            flash('All fields are required.')
-            return render_template('Provider123s.html', data=select_result, form=form)
-        else:
-            Provider123 = Provider123s(form.Name_Provider123.data)
-            db.session.add(Provider123)
-            db.session.commit()
-            select_result.append(Provider123)
 
     return render_template('Provider123s.html', data=select_result, form=form)
 

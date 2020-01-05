@@ -23,10 +23,6 @@ class Subjects(db.Model):
 
     __tablename__ = 'subjects'
     name = db.Column('name', db.String(64), primary_key=True)
-    group_subject = db.relationship('GroupSubject', backref='subjects', lazy='dynamic')
-    subjects_marks = db.relationship('SubjectsMarks', backref='subjects', lazy='dynamic')
-    subjectsheet = db.relationship('SubjectSheet', backref='subjects', lazy='dynamic')
-
     def __init__(self, name):
 
         self.name = name

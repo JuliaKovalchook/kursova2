@@ -13,7 +13,7 @@ class GroupsForm(Form):
 
 class Provider123sForm(Form):
 
-    Name_Provider123 = StringField("Name_Provider123: ", [validators.data_required("Please, enter a Name_Provider123.")])
+    name_provider123 = StringField("Name_Provider123: ", [validators.data_required("Please, enter a Name_Provider123.")])
 
     submit = SubmitField("Enter")
 
