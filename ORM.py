@@ -162,8 +162,8 @@ class Students(db.Model):
 
 class Providers(db.Model):
 
-    __tablename__ = 'Providers'
-    name_provider = db.Column('Name_Provider', db.String(64), primary_key=True)
+    __tablename__ = 'providers'
+    name_provider = db.Column('name_provider', db.String(64), primary_key=True)
     type_product = db.Column('type_product', db.String(64), nullable=False)
 
     def __init__(self, name_provider, type_product):
