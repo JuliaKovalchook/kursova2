@@ -1,4 +1,4 @@
-'''
+
 from flask_wtf import Form
 from wtforms import StringField, FloatField, SubmitField, DateField, Label
 from wtforms import validators
@@ -47,4 +47,3 @@ class SubjectSheetForm(Form):
     submit = SubmitField("Enter")
 
 
-'''
