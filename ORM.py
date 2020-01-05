@@ -183,8 +183,8 @@ class products(db.Model):
 
     __tablename__ = 'products'
     name_product = db.Column('name_product', db.String(64), primary_key=True)
-    price = db.Column('price', db.String(64), nullable=False)
-    provider_name_provider = db.Column('provider_name_provider', db.String(64), db.ForeignKey('providers.name_provider'), nullable=False)
+    price = db.Column('price', db.Integer, nullable=False)
+    provider_name_provider = db.Column('provider_name_provider', db.String(64), db.ForeignKey('providers.name_provider'), primary_key=True)
 
     def __init__(self, name_product, price, provider_name_provider):
 
