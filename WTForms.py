@@ -15,7 +15,6 @@ class GroupsForm(Form):
 class SubjectsForm(Form):
 
     name = StringField("Name: ", [validators.data_required("Please, enter a name of the subject.")])
-
     submit = SubmitField("Enter")
 
 
