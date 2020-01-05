@@ -164,7 +164,7 @@ class Providers(db.Model):
 
     __tablename__ = 'Providers'
     Name_Provider = db.Column('Name_Provider', db.String(64), primary_key=True)
-    type_product = db.Column('last_name', db.String(64), nullable=False)
+    type_product = db.Column('type_product', db.String(64), nullable=False)
 
     def __init__(self, Name_Provider, type_product):
 
