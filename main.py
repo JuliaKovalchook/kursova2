@@ -393,6 +393,25 @@ def edit_product():
 
     form = ProductsForm()
     select_result = Products.query.filter_by().all()
+
+    if request.method == 'POST':
+        if not form.validate():
+            flash('All fields are required')
+            return render_template('products.html', data=select_result, form=form)
+        else:
+            selected_pk_data_list = session['product_edit_pk_data'].split("█")
+            selected_name_product = selected_pk_data_list[0]
+            selected_price = selected_pk_data_list[1]
+            selected_provider_name_provider = selected_pk_data_list[2]
+
+            print(selected_name_product, selected_price, selected_provider_name_provider)
+            product = Products.query.filter_by(name_product=selected_name_product, price=selected_price, provider_name_provider=selected_provider_name_provider).first()
+            product.name_product = form.name_product.data
+            product.price = form.price.data
+            product.provider_name_provider = form.provider_name_provider.data
+            db.session.commit()
+
+
     return render_template('products.html', data=select_result, form=form)
 
 
@@ -401,6 +420,45 @@ def products():
 
     form = ProductsForm()
     select_result = Products.query.filter_by().all()
+    if request.method == 'POST':
+
+        selected_pk_data = request.form.get('del')
+        if selected_pk_data is not None:
+            selected_pk_data = selected_pk_data.split("█")
+            selected_name_product = selected_pk_data[0]
+            selected_price = selected_pk_data[1]
+            selected_provider_name_provider = selected_pk_data[2]
+
+            print(selected_name_product, selected_price,selected_provider_name_provider)
+            selected_row = Products.query.filter_by(name_product=selected_name_product, price=selected_price, provider_name_provider=selected_provider_name_provider).first()
+
+            db.session.delete(selected_row)
+            db.session.commit()
+            select_result.remove(selected_row)
+            return render_template('students.html', data=select_result, form=form)
+
+        selected_pk_data = request.form.get('edit')
+        if selected_pk_data is not None:
+            selected_pk_data_list = selected_pk_data.split("█")
+            selected_name_product = selected_pk_data_list[0]
+            selected_price = selected_pk_data_list[1]
+            selected_provider_name_provider = selected_pk_data_list[2]
+
+            selected_row = Products.query.filter_by(name_product=selected_name_product, price=selected_price, provider_name_provider=selected_provider_name_provider).first()
+
+            session['product_edit_pk_data'] = selected_pk_data
+            return render_template("edit_product.html", row=selected_row, form=form)
+
+        print(form.validate())
+        if not form.validate():
+            flash('All fields are required.')
+            return render_template('products.html', data=select_result, form=form)
+        else:
+            product = Products(form.name_product.data, form.price.data, form.provider_name_provider.data)
+            db.session.add(product)
+            db.session.commit()
+            select_result.append(product)
+
     return render_template('products.html', data=select_result, form=form)
 
 
