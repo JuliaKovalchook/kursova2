@@ -81,6 +81,8 @@ class ViewersForm(Form):
     email = StringField("email: ", [validators.data_required("Please, enter a group code of the student.")])
     firstname = StringField("firstname: ", [validators.data_required("Please, enter a study book of the student.")])
     lastname = StringField("lastname: ", [validators.data_required("Please, enter a study book of the student.")])
+    age = IntegerField("age: ", [validators.data_required("Please, enter a study book of the student.")])
+
     country = StringField("country: ", [validators.data_required("Please, enter a study book of the student.")])
 
     submit = SubmitField("Enter")
