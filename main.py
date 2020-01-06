@@ -512,6 +512,7 @@ def ViewersCanProducts():
     return render_template('ViewersCanProducts.html', data=select_result, form=form)
 
 '''
+'''
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
 
@@ -546,7 +547,7 @@ def dashboard():
 
     return render_template('dashboard1.html',
                            graphJSON1=graphJSON1, graphJSON2=graphJSON2, ids=ids)
-'''
+
 def dashboard():
     query1 = (
         db.session.query(
@@ -555,18 +556,7 @@ def dashboard():
         ).group_by(Providers.type_product)
     ).all()
 
-    query = (
-        db.session.query(
-            func.count(Viewers.age),
-            Viewers.email
-        ).group_by(Viewers.email)
-    ).all()
 
-    email, counts = zip(*query)
-    bar = go.Bar(
-        x=counts,
-        y=email
-    )
 
     type_product, type_product_count = zip(*query1)
     pie = go.Pie(
@@ -576,13 +566,11 @@ def dashboard():
     print(type_product, type_product_count)
 
     data = {
-        "bar": [bar],
         "pie": [pie]
     }
     graphsJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
 
     return render_template('dashboard.html', graphsJSON=graphsJSON)
-
+'''
 if __name__ == '__main__':
     app.run(debug=True)
-'''
