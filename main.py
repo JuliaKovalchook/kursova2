@@ -503,7 +503,7 @@ def edit_ViewersCanProduct():
 
 
 @app.route('/ViewersCanProducts', methods=['GET', 'POST'])
-def viewers():
+def ViewersCanProducts():
 
     form = ViewersCanProductsForm()
     select_result = ViewersCanProductsORM.query.filter_by().all()
