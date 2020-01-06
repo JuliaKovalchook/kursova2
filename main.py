@@ -494,6 +494,22 @@ def viewers():
     select_result = Viewers.query.filter_by().all()
     return render_template('viewers.html', data=select_result, form=form)
 
+@app.route('/edit_ViewersCanProduct', methods=['GET', 'POST'])
+def edit_ViewersCanProduct():
+
+    form = ViewersCanProductsForm()
+    select_result = ViewersCanProductsORM.query.filter_by().all()
+    return render_template('ViewersCanProducts.html', data=select_result, form=form)
+
+
+@app.route('/ViewersCanProducts', methods=['GET', 'POST'])
+def viewers():
+
+    form = ViewersCanProductsForm()
+    select_result = ViewersCanProductsORM.query.filter_by().all()
+    return render_template('ViewersCanProducts.html', data=select_result, form=form)
+
+
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
 

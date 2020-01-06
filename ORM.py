@@ -248,3 +248,28 @@ class Viewers(db.Model):
                self.nikname, self.email, self.firstname, self.lastname, self.age,  self.country
 
 
+
+
+class ViewersCanProductsORM(db.Model):
+
+    __tablename__ = 'ViewersCanProducts'
+    transasction = db.Column('transasction', db.String(50), nullable=False)
+    product_name_product = db.Column('product_name_product', db.String(50), nullable=False)
+    product_price = db.Column('product_price', db.Integer, nullable=False)
+    viewers_email = db.Column('viewers_email', db.String(30), nullable=True)
+
+
+    def __init__(self, transasction, product_name_product, product_price, viewers_email):
+
+        self.transasction = transasction
+        self.product_name_product = product_name_product
+        self.product_price = product_price
+        self.viewers_email = viewers_email
+
+
+    def __repr__(self):
+
+        return '<ViewersCanProducts: transasction=%r; product_name_product=%r; product_price=%r; viewers_email=%r>' % \
+               self.transasction, self.product_name_product, self.product_price, self.viewers_email
+
+
