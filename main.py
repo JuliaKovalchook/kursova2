@@ -527,12 +527,12 @@ def dashboard():
 
     select_result = [select_result_row.type_product for select_result_row in select_result_raw]
 
-    type_product_starts_result = list(map(lambda s: s[:5], select_result))
+    type_product_starts_result = list(map(lambda s: s[:20], select_result))
     type_product = list(set(type_product_starts_result))
     counting_stars = [0] * len(type_product)
 
-    for no_more_counting_dollars in type_product_starts_result:
-        counting_stars[type_product.index(no_more_counting_dollars[:2])] += 1
+    for no_more in type_product_starts_result:
+        counting_stars[type_product.index(no_more[:20])] += 1
 
     bar, pie = go.Bar(x=type_product, y=counting_stars, marker=dict(color='rgb(122, 122, 122)')), go.Pie(labels=type_product, values=counting_stars)
 
