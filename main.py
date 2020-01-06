@@ -509,7 +509,7 @@ def ViewersCanProducts():
     select_result = ViewersCanProductsORM.query.filter_by().all()
     return render_template('ViewersCanProducts.html', data=select_result, form=form)
 
-
+'''
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
 
@@ -544,6 +544,6 @@ def dashboard():
 
     return render_template('dashboard.html',
                            graphJSON1=graphJSON1, graphJSON2=graphJSON2, ids=ids)
-
+'''
 if __name__ == '__main__':
     app.run(debug=True)
