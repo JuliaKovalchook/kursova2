@@ -1,10 +1,12 @@
 
-from flask_wtf import Form
-from wtforms import StringField,IntegerField, FloatField, SubmitField, DateField, Label
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField, IntegerField, DateField,FloatField,Label
 from wtforms import validators
+from wtforms.validators import NumberRange, Required, DataRequired
 
 
-class GroupsForm(Form):
+
+class GroupsForm(FlaskForm):
 
     code = StringField("Code: ", [validators.data_required("Please, enter a code of the group.")])
 
@@ -12,14 +14,14 @@ class GroupsForm(Form):
 
 
 
-class SubjectsForm(Form):
+class SubjectsForm(FlaskForm):
 
     name = StringField("Name: ", [validators.data_required("Please, enter a name of the subject.")])
     submit = SubmitField("Enter")
 
 
 
-class Subjects2Form(Form):
+class Subjects2Form(FlaskForm):
 
     predmet = StringField("Predmet: ", [validators.data_required("Please, enter a name of the predmet.")])
 
@@ -27,7 +29,7 @@ class Subjects2Form(Form):
 
 
 
-class StudentsForm(Form):
+class StudentsForm(FlaskForm):
 
     first_name = StringField("First name: ", [validators.data_required("Please, enter a first name of the student.")])
     last_name = StringField("Last name: ", [validators.data_required("Please, enter a last name of the student.")])
@@ -38,7 +40,7 @@ class StudentsForm(Form):
 
 
 
-class ProvidersForm(Form):
+class ProvidersForm(FlaskForm):
 
     name_provider = StringField("name_provider: ", [validators.data_required("Please, enter a first name of the student.")])
     type_product = StringField("type_product : ", [validators.data_required("Please, enter a last name of the student.")])
@@ -46,7 +48,7 @@ class ProvidersForm(Form):
     submit = SubmitField("Enter")
 
 
-class SubjectSheetForm(Form):
+class SubjectSheetForm(FlaskForm):
 
     subj_name = StringField("Subject Name: ", [validators.data_required("Please, enter a name of the subject.")])
     group_code = StringField("Group code: ", [validators.data_required("Please, enter a group code of the student.")])
@@ -57,7 +59,7 @@ class SubjectSheetForm(Form):
     submit = SubmitField("Enter")
 
 
-class ProductsForm(Form):
+class ProductsForm(FlaskForm):
 
     name_product = StringField("name_product: ", [validators.data_required("Please, enter a name of the subject.")])
     price = StringField("price: ", [validators.data_required("Please, enter a group code of the student.")])
@@ -67,7 +69,7 @@ class ProductsForm(Form):
 
 
 
-class AdvsForm(Form):
+class AdvsForm(FlaskForm):
 
     name_adv = StringField("name_adv: ", [validators.data_required("Please, enter a name of the subject.")])
     description = StringField("description: ", [validators.data_required("Please, enter a group code of the student.")])
@@ -75,7 +77,7 @@ class AdvsForm(Form):
 
     submit = SubmitField("Enter")
 
-class ViewersForm(Form):
+class ViewersForm(FlaskForm):
 
     nikname = StringField("nikname: ", [validators.data_required("Please, enter a nikname of the Viewer")])
     email = StringField("email: ", [validators.data_required("Please, enter a email of the Viewer")])

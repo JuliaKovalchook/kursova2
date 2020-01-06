@@ -1,5 +1,6 @@
-from flask import Flask
+from flask import Flask, request, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+import json
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://enbazddkyxxwzr:b6ec78b08d3c77d444a87db3ad133790952e40089de037d6e1addca627631492@ec2-107-21-214-222.compute-1.amazonaws.com:5432/d3gl6r9dgqcu6c'
