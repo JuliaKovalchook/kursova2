@@ -470,25 +470,25 @@ def edit_adv():
 
     form = AdvsForm()
     select_result = Advs.query.filter_by().all()
-    '''
+
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required')
             return render_template('advs.html', data=select_result, form=form)
         else:
-            selected_pk_data_list = session['product_edit_pk_data'].split("█")
-            selected_name_product = selected_pk_data_list[0]
-            selected_price = selected_pk_data_list[1]
-            selected_provider_name_provider = selected_pk_data_list[2]
+            selected_pk_data_list = session['adv_edit_pk_data'].split("█")
+            selected_name_adv = selected_pk_data_list[0]
+            selected_description = selected_pk_data_list[1]
+            selected_products_name_product = selected_pk_data_list[2]
 
-            print(selected_name_product, selected_price, selected_provider_name_provider)
-            product = Products.query.filter_by(name_product=selected_name_product, price=selected_price,
-                                               provider_name_provider=selected_provider_name_provider).first()
-            product.name_product = form.name_product.data
-            product.price = form.price.data
-            product.provider_name_provider = form.provider_name_provider.data
+            print(selected_name_adv, selected_description, selected_products_name_product)
+            adv =Advs.query.filter_by(name_adv=selected_name_adv, description=selected_description, products_name_product =selected_products_name_product).first()
+
+            adv.name_adv = form.name_adv.data
+            adv.description = form.description.data
+            adv.products_name_product = form.products_name_product.data
             db.session.commit()
-'''
+
     return render_template('advs.html', data=select_result, form=form)
 
 
@@ -497,7 +497,7 @@ def advs():
 
     form = AdvsForm()
     select_result = Advs.query.filter_by().all()
-'''
+
     if request.method == 'POST':
 
         selected_pk_data = request.form.get('del')
@@ -534,7 +534,7 @@ def advs():
             db.session.add(adv)
             db.session.commit()
             select_result.append(adv)
-'''
+
     return render_template('advs.html', data=select_result, form=form)
 
 
