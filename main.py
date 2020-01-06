@@ -547,7 +547,7 @@ def dashboard():
 
     return render_template('dashboard1.html',
                            graphJSON1=graphJSON1, graphJSON2=graphJSON2, ids=ids)
-
+'''
 def dashboard():
     query1 = (
         db.session.query(
