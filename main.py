@@ -429,13 +429,13 @@ def products():
             selected_price = selected_pk_data[1]
             selected_provider_name_provider = selected_pk_data[2]
 
-            print(selected_name_product, selected_price,selected_provider_name_provider)
-            selected_row = Products.query.filter_by(name_product=selected_name_product, price=selected_price, provider_name_provider=selected_provider_name_provider).first()
+            print(selected_name_product, selected_price, selected_provider_name_provider)
+            selected_row = Products.query.filter_by(name_product=selected_name_product, price=selected_price, provider_name_provider =selected_provider_name_provider).first()
 
             db.session.delete(selected_row)
             db.session.commit()
             select_result.remove(selected_row)
-            return render_template('students.html', data=select_result, form=form)
+            return render_template('prodicts.html', data=select_result, form=form)
 
         selected_pk_data = request.form.get('edit')
         if selected_pk_data is not None:

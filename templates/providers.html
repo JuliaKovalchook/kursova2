@@ -1,52 +1,68 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Providers</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+</head>
+<body>
 
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 
+<!-- D3.js -->
+<script src="https://d3js.org/d3.v5.min.js"></script>
 
-{% extends "index.html" %}
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<!-- Plotly.js -->
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
-{% block content %}
+  <ul class="navbar-nav">
+    <li class="nav-item"><a class="nav-link" href="/groups">Groups</a></li>
+    <li class="nav-item"><a class="nav-link" href="/providers">Providers</a></li>
+    <li class="nav-item"><a class="nav-link" href="/subjects">Subjects</a></li>
+    <li class="nav-item"><a class="nav-link" href="/students">Students</a></li>
+    <li class="nav-item"><a class="nav-link" href="/subjectsheet">SubjectSheet</a></li>
+    <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+  </ul>
 
-    <!-- Editable table -->
-    <div class="card">
-        <h3 class="card-header text-center font-weight-bold text-uppercase py-4">{{ name }}</h3>
-        <div class="card-body">
-            <div id="table" class="table-editable">
-      <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
-              class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
-                <table class="table table-bordered table-responsive-md table-striped text-center">
-                    <thead>
-                    <tr>
-                        <th class="text-center">name_provider</th>
-                        <th class="text-center">type product</th>
-                        <th class="text-center">edit</th>
-                        <th class="text-center">Remove</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for row in providers %}
-                        <tr>
-                            <td class="pt-3-half" contenteditable="true">{{row.name_provider}}</td>
-                            <td class="pt-3-half" contenteditable="true">{{row.type_product}}</td>
-                            <td>
-                                <span class="table-remove" ><button type="button" class="btn btn-danger btn-rounded btn-sm my-0" >
-                                    <a href="https://laba2qwer2.herokuapp.com/edit/providers?name_provider={{ row.name_provider }}">edit</a></button></span>
-                            </td>
-                            <td>
-                                <span class="table-remove"><button type="button"
-                                                                   class="btn btn-danger btn-rounded btn-sm my-0" >
-                                    <a href="https://laba2qwer2.herokuapp.com/delete/providers?name_provider={{ row.name_provider }}">Remove</a></button></span>
-                            </td>
-                        </tr>
-                    {% endfor %}
+</nav>
 
-                    <!-- This is our clonable table line -->
+<div class="container">
 
-                    </tbody>
-                </table>
-            <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0" allign="center">
-                                    <a href="https://https://laba2qwer2.herokuapp.com/provider/create/">Create</a></button></span>
-            </div>
-        </div>
-    </div>
-    <!-- Editable table -->
-{% endblock %}
+    <h1>Providers</h1>
+
+          <div>
+              {% for row in data %}
+                  <div class="border p-1 m-1">
+                      <form action = "/providers" method = post>
+                          <p>
+                            {{row.name_provider, row.type_product}}
+                            <button name="del" type="submit" class="mh-100 del" value="{{row.name_provider}}█{{row.type_product}}">Delete</button>
+                            <button name="edit" type="submit" class="mh-100 edit" value="{{row.name_provider}}█{{row.type_product}}">Edit</button>
+                          </p>
+                      </form>
+                  </div>
+              {% endfor %}
+          </div>
+
+    <form action = "/providers" method = post>
+       <fieldset>
+           {{ form.hidden_tag() }}
+           <legend>Add a Provider</legend>
+           <div style = font-size:20px; font-weight:bold; margin-left:150px;>
+              <div>
+                  {{ form.name_provider.label }}      {{ form.name_provider }}
+                  {{ form.type_product.label }}      {{ form.type_product }}
+              </div>
+
+             {{ form.submit }}
+          </div>
+
+       </fieldset>
+    </form>
+
+</div>
