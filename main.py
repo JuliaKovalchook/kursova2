@@ -527,7 +527,7 @@ def dashboard():
 
     select_result = [select_result_row.type_product for select_result_row in select_result_raw]
 
-    type_product_starts_result = list(map(lambda s: s[:2], select_result))
+    type_product_starts_result = list(map(lambda s: s[:10], select_result))
     type_product = list(set(type_product_starts_result))
     counting_stars = [0] * len(type_product)
 
