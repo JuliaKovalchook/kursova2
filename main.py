@@ -523,18 +523,18 @@ def dashboard():
         if len(last_char) > 1:
             return redirect('/dashboard')
 
-    select_result_raw = Groups.query.filter_by().all()
+    select_result_raw = Providers.query.filter_by().all()
 
-    select_result = [select_result_row.code for select_result_row in select_result_raw]
+    select_result = [select_result_row.type_product for select_result_row in select_result_raw]
 
-    codes_starts_result = list(map(lambda s: s[:2], select_result))
-    codes = list(set(codes_starts_result))
-    counting_stars = [0] * len(codes)
+    type_product_starts_result = list(map(lambda s: s[:2], select_result))
+    type_product = list(set(type_product_starts_result))
+    counting_stars = [0] * len(type_product)
 
-    for no_more_counting_dollars in codes_starts_result:
-        counting_stars[codes.index(no_more_counting_dollars[:2])] += 1
+    for no_more_counting_dollars in type_product_starts_result:
+        counting_stars[type_product.index(no_more_counting_dollars[:2])] += 1
 
-    bar, pie = go.Bar(x=codes, y=counting_stars, marker=dict(color='rgb(122, 122, 122)')), go.Pie(labels=codes, values=counting_stars)
+    bar, pie = go.Bar(x=type_product, y=counting_stars, marker=dict(color='rgb(122, 122, 122)')), go.Pie(labels=type_product, values=counting_stars)
 
     data1, data2 = [bar], [pie]
     ids = ["1", "2"]
