@@ -1,13 +1,10 @@
-
-
-
 {% extends "index.html" %}
 
 {% block content %}
 
     <!-- Editable table -->
     <div class="card">
-        <h3 class="card-header text-center font-weight-bold text-uppercase py-4">{{ name_provider }}</h3>
+        <h3 class="card-header text-center font-weight-bold text-uppercase py-4">{{ name }}</h3>
         <div class="card-body">
             <div id="table" class="table-editable">
       <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
@@ -15,8 +12,10 @@
                 <table class="table table-bordered table-responsive-md table-striped text-center">
                     <thead>
                     <tr>
-                        <th class="text-center">name_provider</th>
-                        <th class="text-center">type product</th>
+                        <th class="text-center">user id</th>
+                        <th class="text-center">name</th>
+                        <th class="text-center">surname</th>
+                        <th class="text-center">birthday</th>
                         <th class="text-center">edit</th>
                         <th class="text-center">Remove</th>
                     </tr>
@@ -24,8 +23,10 @@
                     <tbody>
                     {% for row in users %}
                         <tr>
-                            <td class="pt-3-half" contenteditable="true">{{row.name_provider}}</td>
-                            <td class="pt-3-half" contenteditable="true">{{row.type_product}}</td>
+                            <td class="pt-3-half" contenteditable="true">{{row.user_id}}</td>
+                            <td class="pt-3-half" contenteditable="true">{{row.name}}</td>
+                            <td class="pt-3-half" contenteditable="true">{{row.surname}}</td>
+                            <td class="pt-3-half" contenteditable="true">{{row.birthday}}</td>
                             <td>
                                 <span class="table-remove" ><button type="button" class="btn btn-danger btn-rounded btn-sm my-0" >
                                     <a href="https://laboratoryevent.herokuapp.com/edit/user?user_id={{ row.user_id }}">edit</a></button></span>
