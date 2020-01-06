@@ -88,7 +88,7 @@ class ViewersForm(FlaskForm):
     country = StringField("country: ", [validators.data_required("Please, enter a country book of the Viewer")])
 
     submit = SubmitField("Enter")
-'''
+
 class ViewersCanProductsForm(FlaskForm):
 
     transasction = StringField("transasction: ", [validators.data_required("Please, enter a nikname of the Viewer")])
@@ -98,6 +98,5 @@ class ViewersCanProductsForm(FlaskForm):
 
     submit = SubmitField("Enter")
 
-'''
 
 
