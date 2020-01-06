@@ -494,5 +494,40 @@ def viewers():
     select_result = Viewers.query.filter_by().all()
     return render_template('viewers.html', data=select_result, form=form)
 
+@app.route('/dashboard', methods=['GET', 'POST'])
+def dashboard():
+
+    last_char = None
+    if request.method == 'POST':
+
+        last_char = request.form.get('last_char')
+        if len(last_char) > 1:
+            return redirect('/dashboard')
+
+    select_result_raw = Groups.query.filter_by().all()
+    if last_char is not None and last_char != "":
+        select_result = [select_result_row.code for select_result_row in select_result_raw
+                         if select_result_row.code[-1] == last_char]
+    else:
+        select_result = [select_result_row.code for select_result_row in select_result_raw]
+
+    codes_starts_result = list(map(lambda s: s[:2], select_result))
+    codes = list(set(codes_starts_result))
+    counting_stars = [0] * len(codes)
+
+    for no_more_counting_dollars in codes_starts_result:
+        counting_stars[codes.index(no_more_counting_dollars[:2])] += 1
+
+    bar, pie = go.Bar(x=codes, y=counting_stars, marker=dict(color='rgb(122, 122, 122)')), go.Pie(labels=codes, values=counting_stars)
+
+    data1, data2 = [bar], [pie]
+    ids = ["1", "2"]
+
+    graphJSON1 = json.dumps(data1, cls=plotly.utils.PlotlyJSONEncoder)
+    graphJSON2 = json.dumps(data2, cls=plotly.utils.PlotlyJSONEncoder)
+
+    return render_template('dashboard.html',
+                           graphJSON1=graphJSON1, graphJSON2=graphJSON2, ids=ids)
+
 if __name__ == '__main__':
     app.run(debug=True)
