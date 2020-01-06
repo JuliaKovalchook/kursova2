@@ -71,19 +71,19 @@ class AdvsForm(Form):
 
     name_adv = StringField("name_adv: ", [validators.data_required("Please, enter a name of the subject.")])
     description = StringField("description: ", [validators.data_required("Please, enter a group code of the student.")])
-    products_name_product = StringField("products_name_product: ", [validators.data_required("Please, enter a study book of the student.")])
+    products_name_product = StringField("products_name_product: ", [validators.data_required("Please, enter a name product.")])
 
     submit = SubmitField("Enter")
 
 class ViewersForm(Form):
 
-    nikname = StringField("nikname: ", [validators.data_required("Please, enter a name of the subject.")])
-    email = StringField("email: ", [validators.data_required("Please, enter a group code of the student.")])
-    firstname = StringField("firstname: ", [validators.data_required("Please, enter a study book of the student.")])
-    lastname = StringField("lastname: ", [validators.data_required("Please, enter a study book of the student.")])
-    age = IntegerField("age: ", [validators.data_required("Please, enter a study book of the student.")])
+    nikname = StringField("nikname: ", [validators.data_required("Please, enter a nikname of the Viewer")])
+    email = StringField("email: ", [validators.data_required("Please, enter a email of the Viewer")])
+    firstname = StringField("firstname: ", [validators.data_required("Please, enter a firstnameof the Viewer")])
+    lastname = StringField("lastname: ", [validators.data_required("Please, enter a lastname of the Viewer")])
+    age = IntegerField("age: ", [validators.data_required("Please, enter an age of the Viewer")])
 
-    country = StringField("country: ", [validators.data_required("Please, enter a study book of the student.")])
+    country = StringField("country: ", [validators.data_required("Please, enter a country book of the Viewer")])
 
     submit = SubmitField("Enter")
 
