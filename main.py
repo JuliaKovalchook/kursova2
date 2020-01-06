@@ -512,7 +512,7 @@ def ViewersCanProducts():
     return render_template('ViewersCanProducts.html', data=select_result, form=form)
 
 '''
-'''
+
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
 
@@ -524,11 +524,8 @@ def dashboard():
             return redirect('/dashboard')
 
     select_result_raw = Groups.query.filter_by().all()
-    if last_char is not None and last_char != "":
-        select_result = [select_result_row.code for select_result_row in select_result_raw
-                         if select_result_row.code[-1] == last_char]
-    else:
-        select_result = [select_result_row.code for select_result_row in select_result_raw]
+
+    select_result = [select_result_row.code for select_result_row in select_result_raw]
 
     codes_starts_result = list(map(lambda s: s[:2], select_result))
     codes = list(set(codes_starts_result))
@@ -545,31 +542,9 @@ def dashboard():
     graphJSON1 = json.dumps(data1, cls=plotly.utils.PlotlyJSONEncoder)
     graphJSON2 = json.dumps(data2, cls=plotly.utils.PlotlyJSONEncoder)
 
-    return render_template('dashboard1.html',
+    return render_template('dashboard.html',
                            graphJSON1=graphJSON1, graphJSON2=graphJSON2, ids=ids)
-'''
-def dashboard():
-    query1 = (
-        db.session.query(
-            func.count(),
-            Providers.price
-        ).group_by(Providers.price)
-    ).all()
 
-
-    type_product, price = zip(*query1)
-    pie = go.Pie(
-        labels=type_product,
-        values=price
-    )
-    print(type_product, price)
-
-    data = {
-        "pie": [pie]
-    }
-    graphsJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
-
-    return render_template('dashboard.html', graphsJSON=graphsJSON)
 
 if __name__ == '__main__':
     app.run(debug=True)
