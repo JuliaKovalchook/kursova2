@@ -531,8 +531,6 @@ def dashboard():
     type_product = list(set(type_product_starts_result))
     counting_stars = [0] * len(type_product)
 
-    for no_more_counting_dollars in type_product_starts_result:
-        counting_stars[type_product.index(no_more_counting_dollars[:4])] += 1
 
     bar, pie = go.Bar(x=type_product, y=counting_stars, marker=dict(color='rgb(122, 122, 122)')), go.Pie(labels=type_product, values=counting_stars)
 
