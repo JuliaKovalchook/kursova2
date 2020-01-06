@@ -470,6 +470,25 @@ def edit_adv():
 
     form = AdvsForm()
     select_result = Advs.query.filter_by().all()
+    '''
+    if request.method == 'POST':
+        if not form.validate():
+            flash('All fields are required')
+            return render_template('advs.html', data=select_result, form=form)
+        else:
+            selected_pk_data_list = session['product_edit_pk_data'].split("█")
+            selected_name_product = selected_pk_data_list[0]
+            selected_price = selected_pk_data_list[1]
+            selected_provider_name_provider = selected_pk_data_list[2]
+
+            print(selected_name_product, selected_price, selected_provider_name_provider)
+            product = Products.query.filter_by(name_product=selected_name_product, price=selected_price,
+                                               provider_name_provider=selected_provider_name_provider).first()
+            product.name_product = form.name_product.data
+            product.price = form.price.data
+            product.provider_name_provider = form.provider_name_provider.data
+            db.session.commit()
+'''
     return render_template('advs.html', data=select_result, form=form)
 
 
@@ -477,47 +496,45 @@ def edit_adv():
 def advs():
 
     form = AdvsForm()
-    '''
+    select_result = Advs.query.filter_by().all()
+'''
     if request.method == 'POST':
 
         selected_pk_data = request.form.get('del')
         if selected_pk_data is not None:
             selected_pk_data = selected_pk_data.split("█")
-            selected_name_product = selected_pk_data[0]
-            selected_price = selected_pk_data[1]
-            selected_provider_name_provider = selected_pk_data[2]
+            selected_name_adv = selected_pk_data[0]
+            selected_description = selected_pk_data[1]
+            selected_products_name_product = selected_pk_data[2]
 
-            print(selected_name_product, selected_price, selected_provider_name_provider)
-            selected_row = Products.query.filter_by(name_product=selected_name_product, price=selected_price, provider_name_provider =selected_provider_name_provider).first()
-
+            print(selected_name_adv, selected_description, selected_products_name_product)
+            selected_row = Advs.query.filter_by(name_adv=selected_name_adv, description=selected_description, products_name_product =selected_products_name_product).first()
             db.session.delete(selected_row)
             db.session.commit()
             select_result.remove(selected_row)
-            return render_template('prodicts.html', data=select_result, form=form)
+            return render_template('advs.html', data=select_result, form=form)
 
         selected_pk_data = request.form.get('edit')
         if selected_pk_data is not None:
             selected_pk_data_list = selected_pk_data.split("█")
-            selected_name_product = selected_pk_data_list[0]
-            selected_price = selected_pk_data_list[1]
-            selected_provider_name_provider = selected_pk_data_list[2]
+            selected_name_adv = selected_pk_data_list[0]
+            selected_description = selected_pk_data_list[1]
+            selected_products_name_product = selected_pk_data_list[2]
+            selected_row = Advs.query.filter_by(name_adv=selected_name_adv, description=selected_description, products_name_product =selected_products_name_product).first()
 
-            selected_row = Products.query.filter_by(name_product=selected_name_product, price=selected_price, provider_name_provider=selected_provider_name_provider).first()
-
-            session['product_edit_pk_data'] = selected_pk_data
-            return render_template("edit_product.html", row=selected_row, form=form)
+            session['adv_edit_pk_data'] = selected_pk_data
+            return render_template("edit_adv.html", row=selected_row, form=form)
 
         print(form.validate())
         if not form.validate():
             flash('All fields are required.')
-            return render_template('products.html', data=select_result, form=form)
+            return render_template('advs.html', data=select_result, form=form)
         else:
-            product = Products(form.name_product.data, form.price.data, form.provider_name_provider.data)
-            db.session.add(product)
+            adv = Advs(form.name_adv.data, form.description.data, form.products_name_product.data)
+            db.session.add(adv)
             db.session.commit()
-            select_result.append(product)
+            select_result.append(adv)
 '''
-    select_result = Advs.query.filter_by().all()
     return render_template('advs.html', data=select_result, form=form)
 
 
