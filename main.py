@@ -557,11 +557,10 @@ def dashboard():
     ).all()
 
 
-
     type_product, type_product_count = zip(*query1)
     pie = go.Pie(
-        labels=type_product_count,
-        values=type_product
+        labels=type_product,
+        values=type_product_count
     )
     print(type_product, type_product_count)
 
@@ -574,3 +573,4 @@ def dashboard():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
