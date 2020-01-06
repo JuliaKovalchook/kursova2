@@ -223,8 +223,8 @@ class Viewers(db.Model):
     __tablename__ = 'viewers'
     email = db.Column('email', db.String(50), primary_key=True)
     nikname = db.Column('nikname', db.String(30), nullable=False)
-    firstname = db.Column('firstname', db.String(30))
-    lastname = db.Column('lastname', db.String(30))
+    firstname = db.Column('firstname', db.String(30), nullable=False)
+    lastname = db.Column('lastname', db.String(30), nullable=True)
     age = db.Column('age', db.Integer)
 
     country = db.Column('country', db.String(50))

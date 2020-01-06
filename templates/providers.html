@@ -1,5 +1,9 @@
 
 
+</body>
+</html>
+
+
 
 {% extends "index.html" %}
 
@@ -7,7 +11,7 @@
 
     <!-- Editable table -->
     <div class="card">
-        <h3 class="card-header text-center font-weight-bold text-uppercase py-4">{{ name_provider }}</h3>
+        <h3 class="card-header text-center font-weight-bold text-uppercase py-4">{{ providers }}</h3>
         <div class="card-body">
             <div id="table" class="table-editable">
       <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
@@ -28,13 +32,12 @@
                             <td class="pt-3-half" contenteditable="true">{{row.type_product}}</td>
                             <td>
                                 <span class="table-remove" ><button type="button" class="btn btn-danger btn-rounded btn-sm my-0" >
-                                    <a href="https://laboratoryevent.herokuapp.com/edit/user?user_id={{ row.user_id }}">edit</a></button></span>
-{#                                    <a href="http://127.0.0.1:5000/edit/user?user_id={{ row.user_id }}">edit</a></button></span>#}
+                                    <a href="https://laba2qwer2.herokuapp.com/edit/providers?name_provider={{ name_provider }}">edit</a></button></span>
                             </td>
                             <td>
                                 <span class="table-remove"><button type="button"
                                                                    class="btn btn-danger btn-rounded btn-sm my-0" >
-                                    <a href="https://laboratoryevent.herokuapp.com/delete/user?user_id={{ row.user_id }}">Remove</a></button></span>
+                                    <a href="https://laba2qwer2.herokuapp.com/delete/providers?name_provider={{ row.name_provider }}">Remove</a></button></span>
                             </td>
                         </tr>
                     {% endfor %}
@@ -44,7 +47,7 @@
                     </tbody>
                 </table>
             <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0" allign="center">
-                                    <a href="https://laboratoryevent.herokuapp.com/create/user">Create</a></button></span>
+                                    <a href="https://https://laba2qwer2.herokuapp.com/provider/create/">Create</a></button></span>
             </div>
         </div>
     </div>
