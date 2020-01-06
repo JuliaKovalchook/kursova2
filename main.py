@@ -552,17 +552,17 @@ def dashboard():
     query1 = (
         db.session.query(
             func.count(),
-            Providers.type_product
-        ).group_by(Providers.type_product)
+            Providers.price
+        ).group_by(Providers.price)
     ).all()
 
 
-    type_product, type_product_count = zip(*query1)
+    type_product, price = zip(*query1)
     pie = go.Pie(
         labels=type_product,
-        values=type_product_count
+        values=price
     )
-    print(type_product, type_product_count)
+    print(type_product, price)
 
     data = {
         "pie": [pie]
