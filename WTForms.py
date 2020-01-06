@@ -93,7 +93,7 @@ class ViewersCanProductsForm(FlaskForm):
 
     transasction = StringField("transasction: ", [validators.data_required("Please, enter a nikname of the Viewer")])
     product_name_product = StringField("product_name_product: ", [validators.data_required("Please, enter a email of the Viewer")])
-    product_price = StringField("product_price: ", [validators.data_required("Please, enter a firstnameof the Viewer")])
+    product_price = IntegerField("product_price: ", [validators.data_required("Please, enter a firstnameof the Viewer")])
     viewers_email = StringField("viewers_email: ", [validators.data_required("Please, enter a lastname of the Viewer")])
 
     submit = SubmitField("Enter")
