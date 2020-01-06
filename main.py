@@ -571,6 +571,6 @@ def dashboard():
     graphsJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
 
     return render_template('dashboard.html', graphsJSON=graphsJSON)
-'''
+
 if __name__ == '__main__':
     app.run(debug=True)
