@@ -249,7 +249,7 @@ class Viewers(db.Model):
 
 
 
-
+'''
 class ViewersCanProductsORM(db.Model):
 
     __tablename__ = 'ViewersCanProducts'
@@ -271,5 +271,5 @@ class ViewersCanProductsORM(db.Model):
 
         return '<ViewersCanProducts: transasction=%r; product_name_product=%r; product_price=%r; viewers_email=%r>' % \
                self.transasction, self.product_name_product, self.product_price, self.viewers_email
-
+'''
 

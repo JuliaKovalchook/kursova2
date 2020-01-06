@@ -1,6 +1,8 @@
 import plotly
 import plotly.graph_objs as go
 import json
+from sqlalchemy import Integer, String, Date, func, Sequence, Table, Column, ForeignKey, text
+
 
 import pandas as pd
 import numpy as np
@@ -493,7 +495,7 @@ def viewers():
     form = ViewersForm()
     select_result = Viewers.query.filter_by().all()
     return render_template('viewers.html', data=select_result, form=form)
-
+'''
 @app.route('/edit_ViewersCanProduct', methods=['GET', 'POST'])
 def edit_ViewersCanProduct():
 
@@ -542,8 +544,45 @@ def dashboard():
     graphJSON1 = json.dumps(data1, cls=plotly.utils.PlotlyJSONEncoder)
     graphJSON2 = json.dumps(data2, cls=plotly.utils.PlotlyJSONEncoder)
 
-    return render_template('dashboard.html',
+    return render_template('dashboard1.html',
                            graphJSON1=graphJSON1, graphJSON2=graphJSON2, ids=ids)
 '''
+def dashboard():
+    query1 = (
+        db.session.query(
+            func.count(),
+            Providers.type_product
+        ).group_by(Providers.type_product)
+    ).all()
+
+    query = (
+        db.session.query(
+            func.count(Viewers.age),
+            Viewers.email
+        ).group_by(Viewers.email)
+    ).all()
+
+    email, counts = zip(*query)
+    bar = go.Bar(
+        x=counts,
+        y=email
+    )
+
+    type_product, type_product_count = zip(*query1)
+    pie = go.Pie(
+        labels=type_product_count,
+        values=type_product
+    )
+    print(type_product, type_product_count)
+
+    data = {
+        "bar": [bar],
+        "pie": [pie]
+    }
+    graphsJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
+
+    return render_template('dashboard.html', graphsJSON=graphsJSON)
+
 if __name__ == '__main__':
     app.run(debug=True)
+'''
