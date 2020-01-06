@@ -32,12 +32,12 @@
 
 <div class="container">
 
-    <h1>Providers</h1>
+    <h1>advs</h1>
 
           <div>
               {% for row in data %}
                   <div class="border p-1 m-1">
-                      <form action = "/providers" method = post>
+                      <form action = "/advs" method = post>
                           <p>
                             {{row.name_adv, row.description, row.products_name_product}}
                             <button name="del" type="submit" class="mh-100 del" value="{{row.name_adv}}█{{row.description}}█{{row.products_name_product}}">Delete</button>

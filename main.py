@@ -486,9 +486,9 @@ def edit_adv():
 
             adv.name_adv = form.name_adv.data
             adv.description = form.description.data
-            adv.products_name_product = form.products_name_product.data
+            adv.provider_name_provider = form.products_name_product.data
             db.session.commit()
-
+'''
     return render_template('advs.html', data=select_result, form=form)
 
 
