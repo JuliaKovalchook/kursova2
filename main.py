@@ -682,14 +682,14 @@ def correlations():
         y=y_line,
         mode='lines',
         marker_color='rgba(255, 149, 0, 1)',
-        name="correlations"
+        name="regretion"
     )
 
     data = [scatter, line]
 
     graphsJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
 
-    return render_template('correlations.html', graphsJSON=graphsJSON)
+    return render_template('regretion.html', graphsJSON=graphsJSON)
 '''
 @app.route('/correlation', methods=['GET', 'POST'])
 def correlation():
