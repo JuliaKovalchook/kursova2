@@ -257,7 +257,7 @@ class Viewers(db.Model):
                self.nikname, self.email, self.firstname, self.lastname, self.age,  self.country
 
 
-
+'''
 
 class ViewersCanProductsORM(db.Model):
 
@@ -281,3 +281,4 @@ class ViewersCanProductsORM(db.Model):
                self.transasction, self.product_name_product, self.product_price, self.viewers_email
 
 
+'''
