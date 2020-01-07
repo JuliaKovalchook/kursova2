@@ -5,16 +5,11 @@ INSERT INTO Groups VALUES('KM-64');
 
 INSERT INTO Subjects VALUES('Math');
 INSERT INTO Subjects VALUES('English');
-CREATE TABLE Subjects2(predmet text);
-ALTER TABLE Subjects2
-ADD CONSTRAINT predmet_pk PRIMARY KEY(predmet);
 
-INSERT INTO Subjects2 VALUES('test');
-INSERT INTO Subjects VALUES('Turkish');
 
-INSERT INTO Students VALUES('Volodymyr', 'Drapak', 'KM6103', 'TBD', 'TBD', 'KM-61');
-INSERT INTO Students VALUES('Random', 'Guy', 'KM6200', 'TBD', 'TBD', 'KM-62');
-INSERT INTO Students VALUES('Always', 'Absent', 'KM6250', 'bad', 'otchislen', 'KM-63');
+INSERT INTO Students VALUES('Volodymyr', 'Drapak', 'TBD', 'KM-61');
+INSERT INTO Students VALUES('Random', 'Guy',  'TBD', 'KM-62');
+INSERT INTO Students VALUES('Always', 'Absent', 'otchislen', 'KM-63');
 
 INSERT INTO SubjectSheet VALUES('Math', 'KM-61', 'KM6103', TO_DATE('28.10.19', 'DD.MM.YY'), 100);
 INSERT INTO SubjectSheet VALUES('English', 'KM-61', 'KM6103', TO_DATE('21.10.19', 'DD.MM.YY'), 100);
