@@ -603,6 +603,57 @@ def dashboard():
                            graphJSON1=graphJSON1, graphJSON2=graphJSON2, ids=ids)
 
 
+@app.route('/cluster/<subj>', methods=['GET', 'POST'])
+def cluster(subj):
+
+    select_result = db.session.query(SubjectSheet.study_book, db.func.sum(SubjectSheet.mark).label('total'))\
+        .filter_by(subj_name=subj).group_by(SubjectSheet.study_book).all()
+
+    students_names = []
+    total_marks = []
+    for row in select_result:
+
+        students_names.append(row.study_book)
+        total_marks.append(row.total)
+
+    df = pd.DataFrame(
+        data=total_marks,
+        index=students_names
+    )
+
+    kmeans = KMeans(n_clusters=3)
+    kmeans.fit(df)
+
+    labels = kmeans.predict(df)
+    centroids = kmeans.cluster_centers_
+
+    x = []
+    for index, name in enumerate(students_names):
+        x.append(index + 1)
+
+    sct1 = go.Scatter(
+        x = x,
+        y = df[0],
+        mode = 'markers',
+        marker = dict(size = [10 for i in range(len(x))], color = [i + 2 for i in range(len(x))]),
+        name = 'marks of students'
+    )
+
+    print(x)
+    scts = [go.Scatter(
+        x = [0, max(x) + 1],
+        y = [centroid, centroid],
+        mode = 'lines',
+        marker = dict(color = [10, 10]),
+        name = 'class ' + str(index + 1) + ' center'
+    ) for index, centroid in enumerate(centroids.flatten())]
+
+    data = [sct1] + scts
+
+    graphJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
+
+    return render_template("cluster.html", graphJSON=graphJSON)
+
 if __name__ == '__main__':
     app.run(debug=True)
 
