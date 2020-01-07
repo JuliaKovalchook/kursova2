@@ -643,8 +643,7 @@ def claster():
 
     return render_template('claster.html', row=kmeans.predict(np.array([test_list]))[0],
                            count_claster=count_clasters, graphsJSON=graphsJSON)
-
-
+'''
 @app.route('/correlations', methods=['GET', 'POST'])
 def correlations():
     df = pd.DataFrame()
@@ -691,7 +690,21 @@ def correlations():
     graphsJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
 
     return render_template('correlations.html', graphsJSON=graphsJSON)
+'''
+@app.route('/correlation', methods=['GET', 'POST'])
+def correlation():
+    counts = []
 
+    for name_product, count, provider_name_provider in db.session.query(Products.name_product, func.count(Products.name_product),
+                                                 func.max(Products.provider_name_provider)).group_by(Products.name_product):
+        counts.append({"name_product": name_product, "count_events": count, "name": provider_name_provider})
+    seq = [x['count_events'] for x in counts]
+    print(counts)
+    res = ''
+    for row in counts:
+        if row['count_events'] == max(seq):
+            res = row['name']
+    return render_template('correlation.html', row=res)
 
 if __name__ == '__main__':
     app.run(debug=True)
