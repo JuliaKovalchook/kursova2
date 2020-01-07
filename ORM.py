@@ -187,9 +187,10 @@ class Products(db.Model):
     price = db.Column('price', db.String(64), primary_key=True)
     provider_name_provider = db.Column('provider_name_provider', db.String(64), db.ForeignKey('providers.name_provider'), primary_key=True)
     advs = db.relationship('Advs', backref='products', lazy='dynamic')
+    '''
     ViewersCanProducts = db.relationship('ViewersCanProducts', backref='products', lazy='dynamic')
     ViewersCanProducts = db.relationship('ViewersCanProducts', backref='products', lazy='dynamic')
-
+    '''
 
 
     def __init__(self, name_product, price, provider_name_provider):
@@ -232,8 +233,9 @@ class Viewers(db.Model):
     age = db.Column('age', db.Integer)
 
     country = db.Column('country', db.String(50))
+    '''
     ViewersCanProducts = db.relationship('ViewersCanProducts', backref='viewers', lazy='dynamic')
-
+    '''
 
 
 
