@@ -601,7 +601,7 @@ def dashboard():
 
     return render_template('dashboard.html',
                            graphJSON1=graphJSON1, graphJSON2=graphJSON2, ids=ids)
-'''
+
 @app.route('/claster', methods=['GET', 'POST'])
 def claster():
     df = pd.DataFrame()
@@ -614,7 +614,7 @@ def claster():
     count_clasters = len(df['provider_name_provider'].unique())
     print(count_clasters)
     kmeans = KMeans(n_clusters=count_clasters, random_state=0).fit(X)
-    # print(kmeans)
+    print(kmeans)
     count_columns = len(X.columns)
     test_list = [0] * count_columns
     test_list[1] = 1
@@ -642,9 +642,9 @@ def claster():
     return render_template('claster.html', row=kmeans.predict(np.array([test_list]))[0],
                            count_claster=count_clasters, graphsJSON=graphsJSON)
 
+
+
 '''
-
-
 @app.route('/corr/<subj1>&<subj2>', methods=['GET', 'POST'])
 def corr(subj1, subj2):
 
@@ -792,7 +792,7 @@ def cluster(subj):
     return render_template("cluster.html", graphJSON=graphJSON)
 
 
-
+'''
 
 if __name__ == '__main__':
     app.run(debug=True)
