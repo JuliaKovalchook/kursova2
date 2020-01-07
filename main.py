@@ -690,7 +690,7 @@ def correlations():
 
     graphsJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
 
-    return render_template('regretion.html', graphsJSON=graphsJSON)
+    return render_template('correlations.html', graphsJSON=graphsJSON)
 
 
 if __name__ == '__main__':
