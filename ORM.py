@@ -166,6 +166,7 @@ class Providers(db.Model):
     __tablename__ = 'providers'
     name_provider = db.Column('name_provider', db.String(64), primary_key=True)
     type_product = db.Column('type_product', db.String(64), nullable=False)
+    products = db.relationship('Products', backref='providers', lazy='dynamic')
 
     def __init__(self, name_provider, type_product):
 
@@ -183,9 +184,13 @@ class Products(db.Model):
 
     __tablename__ = 'products'
     name_product = db.Column('name_product', db.String(64), primary_key=True)
-    price = db.Column('price', db.String(64), nullable=False)
+    price = db.Column('price', db.String(64), primary_key=True)
     provider_name_provider = db.Column('provider_name_provider', db.String(64), db.ForeignKey('providers.name_provider'), primary_key=True)
     advs = db.relationship('Advs', backref='products', lazy='dynamic')
+    ViewersCanProducts = db.relationship('ViewersCanProducts', backref='products', lazy='dynamic')
+    ViewersCanProducts = db.relationship('ViewersCanProducts', backref='products', lazy='dynamic')
+
+
 
     def __init__(self, name_product, price, provider_name_provider):
 
@@ -227,6 +232,9 @@ class Viewers(db.Model):
     age = db.Column('age', db.Integer)
 
     country = db.Column('country', db.String(50))
+    ViewersCanProducts = db.relationship('ViewersCanProducts', backref='viewers', lazy='dynamic')
+
+
 
 
 
@@ -253,10 +261,9 @@ class ViewersCanProductsORM(db.Model):
 
     __tablename__ = 'ViewersCanProducts'
     transasction = db.Column('transasction', db.String(50), primary_key=True)
-    product_name_product = db.Column('product_name_product', db.String(50), nullable=False)
-    product_price = db.Column('product_price', db.Integer, nullable=False)
-    viewers_email = db.Column('viewers_email', db.String(30), nullable=False)
-
+    products_name_product = db.Column('products_name_product', db.String(64), db.ForeignKey('products.name_product'), primary_key=True)
+    product_price = db.Column('products_name_product', db.Integer(64), db.ForeignKey('products.price'), primary_key=True)
+    viewers_email = db.Column('viewers_email', db.String(64), db.ForeignKey('viewers.email'), primary_key=True)
 
     def __init__(self, transasction, product_name_product, product_price, viewers_email):
 
