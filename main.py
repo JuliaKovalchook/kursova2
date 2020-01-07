@@ -643,7 +643,7 @@ def claster():
 
     return render_template('claster.html', row=kmeans.predict(np.array([test_list]))[0],
                            count_claster=count_clasters, graphsJSON=graphsJSON)
-'''
+
 @app.route('/correlations', methods=['GET', 'POST'])
 def correlations():
     df = pd.DataFrame()
@@ -705,7 +705,7 @@ def correlation():
         if row['count_events'] == max(seq):
             res = row['name']
     return render_template('correlation.html', row=res)
-
+'''
 if __name__ == '__main__':
     app.run(debug=True)
 
