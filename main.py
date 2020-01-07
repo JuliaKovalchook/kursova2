@@ -658,8 +658,8 @@ def correlations():
     ).all()
 
     scaler = StandardScaler()
-    scaler.fit(df[["count_event"]])
-    train_X = scaler.transform(df[["count_event"]])
+    scaler.fit(df[["count_name_product"]])
+    train_X = scaler.transform(df[["count_name_product"]])
     print(train_X, df[["avg_price"]])
     reg = LinearRegression().fit(train_X, df[["avg_price"]])
 
