@@ -682,7 +682,7 @@ def correlations():
         y=y_line,
         mode='lines',
         marker_color='rgba(255, 149, 0, 1)',
-        name="regression"
+        name="correlations"
     )
 
     data = [scatter, line]
