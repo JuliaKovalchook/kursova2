@@ -620,7 +620,7 @@ def claster():
     test_list[1] = 1
     test_list[-1] = 1
     print(test_list)
-    # print(kmeans.labels_)
+    print(kmeans.labels_)
     print(kmeans.predict(np.array([test_list])))
     db.session.close()
     query1 = (
