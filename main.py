@@ -16,6 +16,7 @@ from ORM import *
 from WTForms import *
 
 app.secret_key = 'development key'
+list_adv = []
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -133,7 +134,7 @@ def products():
             db.session.delete(selected_row)
             db.session.commit()
             select_result.remove(selected_row)
-            return render_template('prodicts.html', data=select_result, form=form)
+            return render_template('products.html', data=select_result, form=form)
 
         selected_pk_data = request.form.get('edit')
         if selected_pk_data is not None:
@@ -317,14 +318,16 @@ def viewers():
 print(form.validate())
 if not form.validate():
     flash('All fields are required.')
-    return render_template('advs.html', data=select_result, form=form)
+    return render_template('viewers.html', data=select_result, form=form)
 else:
-    adv = Advs(form.name_adv.data, form.description.data, form.products_name_product.data)
-    db.session.add(adv)
+    viewer = Viewers(form.email.data, form.nikname.data, form.firstname.data, form.lastname.data, form.age.data,
+                     form.country.data)
+    db.session.add(viewer)
     db.session.commit()
-    select_result.append(adv)
+    select_result.append(viewer)
 
 return render_template('viewers.html', data=select_result, form=form)
+
 '''
 @app.route('/edit_ViewersCanProduct', methods=['GET', 'POST'])
 def edit_ViewersCanProduct():
@@ -485,6 +488,49 @@ def correlation():
             res = row['name']
     return render_template('correlation.html', row=res)
 '''
+
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    form = CreateQuery()
+    if request.method == 'POST':
+
+        list_adv.clear()
+        for name_adv, description, products_name_product in db.session.query(Advs.name_adv, Advs.description,
+                                                                             Advs.products_name_product):
+            if products_name_product == form.products_name_product.data:
+                list_adv.append(name_adv)
+
+        return redirect(url_for('searchList'))
+
+    return render_template('search.html', form=form, form_name="Search", action="search")
+
+
+'''
+@app.route('/search/result')
+def searchList():
+    res = []
+    try:
+        for i in list_adv:
+            name, new_skill, hashtag, city, dates, bonus = db.session \
+                .query(ormEvent.name_adv, ormPlan.description, ormEvent.hashtag, ormEvent.city, ormEvent.dates, ormBonus.name) \
+                .join(ormBonus, ormEvent.event_id == ormBonus.event_id).join(ormPlan,
+                                                                             ormEvent.event_id == ormPlan.event_id) \
+                .filter(ormEvent.event_id == i).one()
+            res.append(
+                {"name_adv": name_adv, "description": description, "products_name_product": products_name_product})
+
+				             name, new_skill, hashtag, city, dates, bonus = db.session \
+                .query(Advs.name_adv, Advs.description, Advs.products_name_product) \
+                .join(Products, Products.name_product == Advs.products_name_product)
+                .filter(Products.name_product == i).one()
+    except:
+        print("don't data")
+    print(list_adv)
+
+    return render_template('search_list_adv.html', name="result", results=res, action="/search/result")
+'''
+
 if __name__ == '__main__':
     app.run(debug=True)
 
