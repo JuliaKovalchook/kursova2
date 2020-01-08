@@ -240,7 +240,7 @@ def advs():
 def edit_viewer():
     form = ViewersForm()
     select_result = Viewers.query.filter_by().all()
-
+    '''
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required')
@@ -265,7 +265,7 @@ def edit_viewer():
         viewer.age = form.age.data
         viewer.country = form.country.data
         db.session.commit()
-
+    '''
     return render_template('viewers.html', data=select_result, form=form)
 
 
@@ -279,15 +279,15 @@ def viewers():
         selected_pk_data = request.form.get('del')
         if selected_pk_data is not None:
             selected_pk_data = selected_pk_data.split("█")
-            selected_email = selected_pk_data[0]
-            selected_nikname = selected_pk_data[1]
+            selected_nikname  = selected_pk_data[0]
+            selected_email = selected_pk_data[1]
             selected_firstname = selected_pk_data[2]
             selected_lastname = selected_pk_data[3]
             selected_age = selected_pk_data[4]
             selected_country = selected_pk_data[5]
 
-            print(selected_email, selected_nikname, selected_products_name_product)
-            selected_row = Viewers.query.filter_by(email=selected_email, nikname=selected_nikname,
+            print(selected_nikname, selected_email,  selected_firstname, selected_lastname, selected_age, selected_country)
+            selected_row = Viewers.query.filter_by( nikname=selected_nikname,email=selected_email,
                                                    firstname=selected_firstname, lastname=selected_lastname,
                                                    age=selected_age, country=selected_country).first()
             db.session.delete(selected_row)
@@ -298,14 +298,14 @@ def viewers():
         selected_pk_data = request.form.get('edit')
         if selected_pk_data is not None:
             selected_pk_data_list = selected_pk_data.split("█")
-            selected_email = selected_pk_data_list[0]
-            selected_nikname = selected_pk_data_list[1]
+            selected_nikname = selected_pk_data_list[0]
+            selected_email = selected_pk_data_list[1]
             selected_firstname = selected_pk_data_list[2]
             selected_lastname = selected_pk_data_list[3]
             selected_age = selected_pk_data_list[4]
             selected_country = selected_pk_data_list[5]
 
-            selected_row = Viewers.query.filter_by(email=selected_email, nikname=selected_nikname, firstname=selected_firstname,
+            selected_row = Viewers.query.filter_by(nikname=selected_nikname, email=selected_email,  firstname=selected_firstname,
                                                    lastname=selected_lastname, age=selected_age,
                                                    country=selected_country).first()
             session['viewer_edit_pk_data'] = selected_pk_data
@@ -317,12 +317,12 @@ def viewers():
             flash('All fields are required.')
             return render_template('viewers.html', data=select_result, form=form)
         else:
-            viewer = Viewers(form.email.data, form.nikname.data, form.firstname.data, form.lastname.data, form.age.data,
+            viewer = Viewers(form.nikname.data, form.email.data, form.firstname.data, form.lastname.data, form.age.data,
                              form.country.data)
             db.session.add(viewer)
             db.session.commit()
             select_result.append(viewer)
-
+'''
     return render_template('viewers.html', data=select_result, form=form)
 
 '''
