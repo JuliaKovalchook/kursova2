@@ -17,322 +17,14 @@ from WTForms import *
 
 app.secret_key = 'development key'
 
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
-
     return render_template('index.html')
-
-
-@app.route('/edit_group', methods = ['GET', 'POST'])
-def edit_group():
-
-    form = GroupsForm()
-    select_result = Groups.query.filter_by().all()
-
-    if request.method == 'POST':
-        if not form.validate():
-            flash('All fields are required')
-            return render_template('groups.html', data=select_result, form=form)
-        else:
-            group_code = session['group_edit_pk_data']
-            group = Groups.query.filter_by(code=group_code).first()
-            group.code = form.code.data
-            db.session.commit()
-            return render_template("groups.html", data=select_result, form=form)
-
-    return render_template("groups.html", data=select_result, form=form)
-
-
-@app.route('/groups', methods=['GET', 'POST'])
-def groups():
-
-    form = GroupsForm()
-    select_result = Groups.query.filter_by().all()
-
-    if request.method == 'POST':
-
-        selected_code = request.form.get('del')
-        if selected_code is not None:
-            selected_row = Groups.query.filter_by(code=selected_code).first()
-            db.session.delete(selected_row)
-            db.session.commit()
-            select_result.remove(selected_row)
-            return render_template('groups.html', data=select_result, form=form)
-
-        selected_code = request.form.get('edit')
-        if selected_code is not None:
-            selected_row = Groups.query.filter_by(code=selected_code).first()
-            session['group_edit_pk_data'] = selected_code
-            return render_template("edit_group.html", row=selected_row, form=form)
-
-        print(form.validate())
-        if not form.validate():
-            flash('All fields are required.')
-            return render_template('groups.html', data=select_result, form=form)
-        else:
-            group = Groups(form.code.data)
-            db.session.add(group)
-            db.session.commit()
-            select_result.append(group)
-
-    return render_template('groups.html', data=select_result, form=form)
-
-
-@app.route('/edit_subject', methods=['GET', 'POST'])
-def edit_subject():
-
-    form = SubjectsForm()
-    select_result = Subjects.query.filter_by().all()
-
-    if request.method == 'POST':
-        if not form.validate():
-            flash('All fields are required.')
-            return render_template('edit_subject.html')
-        else:
-            subject_name = session['subject_edit_pk_data']
-            subject = Subjects.query.filter_by(name=subject_name).first()
-            subject.name = form.name.data
-            db.session.commit()
-            return render_template("subjects.html", data=select_result, form=form)
-
-    return render_template("subjects.html", data=select_result, form=form)
-
-
-@app.route('/subjects', methods=['GET', 'POST'])
-def subjects():
-
-    form = SubjectsForm()
-    select_result = Subjects.query.filter_by().all()
-
-    if request.method == 'POST':
-
-        selected_name = request.form.get('del')
-        if selected_name is not None:
-            selected_row = Subjects.query.filter_by(name=selected_name).first()
-            db.session.delete(selected_row)
-            db.session.commit()
-            select_result.remove(selected_row)
-            return render_template('subjects.html', data=select_result, form=form)
-
-        selected_name = request.form.get('edit')
-        if selected_name is not None:
-            selected_row = Subjects.query.filter_by(name=selected_name).first()
-            session['subject_edit_pk_data'] = selected_name
-            return render_template("subjects.html", row=selected_row, form=form)
-
-        print(form.validate())
-        if not form.validate():
-            flash('All fields are required.')
-            return render_template('subjects.html', data=select_result, form=form)
-        else:
-            subject = Subjects(form.name.data)
-            db.session.add(subject)
-            db.session.commit()
-            select_result.append(subject)
-
-    return render_template('subjects.html', data=select_result, form=form)
-
-
-@app.route('/edit_subject2', methods=['GET', 'POST'])
-def edit_subject2():
-    form = Subjects2Form()
-    select_result = Subjects2.query.filter_by().all()
-
-    if request.method == 'POST':
-        if not form.validate():
-            flash('All fields are required.')
-            return render_template('edit_subject2.html')
-        else:
-            subject2_predmet = session['subject2_edit_pk_data']
-            subject2 = Subjects2.query.filter_by(predmet=subject2_predmet).first()
-            subject2.predmet = form.predmet.data
-            db.session.commit()
-            return render_template("subjects2.html", data=select_result, form=form)
-
-    return render_template("subjects2.html", data=select_result, form=form)
-
-@app.route('/subjects2', methods=['GET', 'POST'])
-def subjects2():
-
-    form = Subjects2Form()
-    select_result = Subjects2.query.filter_by().all()
-    if request.method == 'POST':
-
-        selected_predmet = request.form.get('del')
-        if selected_predmet is not None:
-            selected_row = Subjects.query.filter_by(predmet=selected_predmet).first()
-            db.session.delete(selected_row)
-            db.session.commit()
-            select_result.remove(selected_row)
-            return render_template('subjects2.html', data=select_result, form=form)
-
-        selected_predmet = request.form.get('edit')
-        if selected_predmet is not None:
-            selected_row = Subjects2.query.filter_by(predmet=selected_predmet).first()
-            session['subject2_edit_pk_data'] = selected_predmet
-            return render_template("subjects2.html", row=selected_row, form=form)
-
-        print(form.validate())
-        if not form.validate():
-            flash('All fields are required.')
-            return render_template('subjects2.html', data=select_result, form=form)
-        else:
-            subject2 = Subjects2(form.predmet.data)
-            db.session.add(subject2)
-            db.session.commit()
-            select_result.append(subject2)
-
-    return render_template('subjects2.html', data=select_result, form=form)
-
-
-@app.route('/edit_student', methods=['GET', 'POST'])
-def edit_student():
-
-    form = StudentsForm()
-    select_result = Students.query.filter_by().all()
-
-    if request.method == 'POST':
-        if not form.validate():
-            flash('All fields are required')
-            return render_template('students.html', data=select_result, form=form)
-        else:
-            selected_pk_data_list = session['student_edit_pk_data'].split("█")
-            selected_group_code = selected_pk_data_list[0]
-            selected_spooky_book = selected_pk_data_list[1]
-            print(selected_group_code, selected_spooky_book)
-            student = Students.query.filter_by(study_book=selected_spooky_book, group_code=selected_group_code).first()
-            student.first_name = form.first_name.data
-            student.last_name = form.last_name.data
-            student.study_book = form.study_book.data
-            student.group_code = form.group_code.data
-            db.session.commit()
-
-
-    return render_template("students.html", data=select_result, form=form)
-
-
-@app.route('/students', methods=['GET', 'POST'])
-def students():
-
-    form = StudentsForm()
-    select_result = Students.query.filter_by().all()
-
-    if request.method == 'POST':
-
-        selected_pk_data = request.form.get('del')
-        if selected_pk_data is not None:
-            selected_pk_data = selected_pk_data.split("█")
-            selected_group_code = selected_pk_data[0]
-            selected_spooky_book = selected_pk_data[1]
-            print(selected_spooky_book, selected_group_code)
-            selected_row = Students.query.filter_by(study_book=selected_spooky_book, group_code=selected_group_code).first()
-            db.session.delete(selected_row)
-            db.session.commit()
-            select_result.remove(selected_row)
-            return render_template('students.html', data=select_result, form=form)
-
-        selected_pk_data = request.form.get('edit')
-        if selected_pk_data is not None:
-            selected_pk_data_list = selected_pk_data.split("█")
-            selected_group_code = selected_pk_data_list[0]
-            selected_spooky_book = selected_pk_data_list[1]
-            selected_row = Students.query.filter_by(study_book=selected_spooky_book, group_code=selected_group_code).first()
-            session['student_edit_pk_data'] = selected_pk_data
-            return render_template("edit_student.html", row=selected_row, form=form)
-
-        print(form.validate())
-        if not form.validate():
-            flash('All fields are required.')
-            return render_template('students.html', data=select_result, form=form)
-        else:
-            student = Students(form.first_name.data, form.last_name.data, form.study_book.data, form.group_code.data)
-            db.session.add(student)
-            db.session.commit()
-            select_result.append(student)
-
-    return render_template('students.html', data=select_result, form=form)
-
-
-
-@app.route('/edit_subjectsheet', methods=['GET', 'POST'])
-def edit_subjectsheet():
-
-    form = SubjectSheetForm()
-    select_result = SubjectSheet.query.filter_by().all()
-    if request.method == 'POST':
-        if not form.validate():
-            flash('All fields are required')
-            return render_template('subjectsheet.html', data=select_result, form=form)
-        else:
-            selected_pk_data_list = session['subjectsheet_edit_pk_data'].split("█")
-            selected_subj_name = selected_pk_data_list[0]
-            selected_group_code = selected_pk_data_list[1]
-            selected_spooky_book = selected_pk_data_list[2]
-            selected_date_of_mark = selected_pk_data_list[3]
-            subjectsheet = SubjectSheet.query.filter_by(subj_name=selected_subj_name,
-                                                        study_book=selected_spooky_book,
-                                                        group_code=selected_group_code,
-                                                        date_of_mark=selected_date_of_mark).first()
-            subjectsheet.subj_name = form.subj_name.data
-            subjectsheet.group_code = form.group_code.data
-            subjectsheet.study_book = form.study_book.data
-            subjectsheet.date_of_mark = form.date_of_mark.data
-            subjectsheet.mark = form.mark.data
-            db.session.commit()
-            return render_template("subjectsheet.html", data=select_result, form=form)
-    return render_template("subjectsheet.html", data=select_result, form=form)
-
-
-@app.route('/subjectsheet', methods=['GET', 'POST'])
-def subjectsheet():
-    form = SubjectSheetForm()
-    select_result = SubjectSheet.query.filter_by().all()
-    if request.method == 'POST':
-
-        selected_pk_data = request.form.get('del')
-        if selected_pk_data is not None:
-            selected_pk_data = selected_pk_data.split("█")
-            selected_subj_name = selected_pk_data[0]
-            selected_group_code = selected_pk_data[1]
-            selected_spooky_book = selected_pk_data[2]
-            selected_date_of_mark = selected_pk_data[3]
-            selected_row = SubjectSheet.query.filter_by(subj_name=selected_subj_name, group_code=selected_group_code,
-                                                    study_book=selected_spooky_book, date_of_mark=selected_date_of_mark).first()
-            db.session.delete(selected_row)
-            db.session.commit()
-            select_result.remove(selected_row)
-            return render_template('subjectsheet.html', data=select_result, form=form)
-
-        selected_pk_data = request.form.get('edit')
-        if selected_pk_data is not None:
-            selected_pk_data_list = selected_pk_data.split("█")
-            selected_subj_name = selected_pk_data_list[0]
-            selected_group_code = selected_pk_data_list[1]
-            selected_spooky_book = selected_pk_data_list[2]
-            selected_date_of_mark = selected_pk_data_list[3]
-            selected_row = SubjectSheet.query.filter_by(subj_name=selected_subj_name,
-                                                        study_book=selected_spooky_book,
-                                                        group_code=selected_group_code,
-                                                        date_of_mark=selected_date_of_mark).first()
-            session['subjectsheet_edit_pk_data'] = selected_pk_data
-            return render_template("edit_subjectsheet.html", row=selected_row, form=form)
-
-        print(form.validate())
-        if not form.validate():
-            flash('All fields are required.')
-            return render_template('subjectsheet.html', data=select_result, form=form)
-        else:
-            subjectsheet = SubjectSheet(form.subj_name.data, form.group_code.data, form.study_book.data,
-                                        form.date_of_mark.data, form.mark.data)
-            db.session.add(subjectsheet)
-            db.session.commit()
-            select_result.append(subjectsheet)
-    return render_template('subjectsheet.html', data=select_result, form=form)
 
 
 @app.route('/edit_provider', methods=['GET', 'POST'])
 def edit_provider():
-
     form = ProvidersForm()
     select_result = Providers.query.filter_by().all()
     if request.method == 'POST':
@@ -344,7 +36,8 @@ def edit_provider():
             selected_name_provider = selected_pk_data_list[0]
             selected_type_product = selected_pk_data_list[1]
             print(selected_name_provider, selected_type_product)
-            provider = Providers.query.filter_by(name_provider=selected_name_provider, type_product=selected_type_product).first()
+            provider = Providers.query.filter_by(name_provider=selected_name_provider,
+                                                 type_product=selected_type_product).first()
             provider.name_provider = form.name_provider.data
             provider.type_product = form.type_product.data
             db.session.commit()
@@ -354,7 +47,6 @@ def edit_provider():
 
 @app.route('/providers', methods=['GET', 'POST'])
 def providers():
-
     form = ProvidersForm()
     select_result = Providers.query.filter_by().all()
     if request.method == 'POST':
@@ -365,7 +57,8 @@ def providers():
             selected_name_provider = selected_pk_data[0]
             selected_type_product = selected_pk_data[1]
             print(selected_name_provider, selected_type_product)
-            selected_row = Providers.query.filter_by(name_provider=selected_name_provider, type_product=selected_type_product).first()
+            selected_row = Providers.query.filter_by(name_provider=selected_name_provider,
+                                                     type_product=selected_type_product).first()
             db.session.delete(selected_row)
             db.session.commit()
             select_result.remove(selected_row)
@@ -376,7 +69,8 @@ def providers():
             selected_pk_data_list = selected_pk_data.split("█")
             selected_name_provider = selected_pk_data_list[0]
             selected_type_product = selected_pk_data_list[1]
-            selected_row = Providers.query.filter_by(name_provider=selected_name_provider, type_product=selected_type_product).first()
+            selected_row = Providers.query.filter_by(name_provider=selected_name_provider,
+                                                     type_product=selected_type_product).first()
             session['provider_edit_pk_data'] = selected_pk_data
             return render_template("edit_provider.html", row=selected_row, form=form)
 
@@ -392,9 +86,9 @@ def providers():
 
     return render_template('providers.html', data=select_result, form=form)
 
+
 @app.route('/edit_product', methods=['GET', 'POST'])
 def edit_product():
-
     form = ProductsForm()
     select_result = Products.query.filter_by().all()
 
@@ -409,19 +103,18 @@ def edit_product():
             selected_provider_name_provider = selected_pk_data_list[2]
 
             print(selected_name_product, selected_price, selected_provider_name_provider)
-            product = Products.query.filter_by(name_product=selected_name_product, price=selected_price, provider_name_provider=selected_provider_name_provider).first()
+            product = Products.query.filter_by(name_product=selected_name_product, price=selected_price,
+                                               provider_name_provider=selected_provider_name_provider).first()
             product.name_product = form.name_product.data
             product.price = form.price.data
             product.provider_name_provider = form.provider_name_provider.data
             db.session.commit()
-
 
     return render_template('products.html', data=select_result, form=form)
 
 
 @app.route('/products', methods=['GET', 'POST'])
 def products():
-
     form = ProductsForm()
     select_result = Products.query.filter_by().all()
     if request.method == 'POST':
@@ -434,7 +127,8 @@ def products():
             selected_provider_name_provider = selected_pk_data[2]
 
             print(selected_name_product, selected_price, selected_provider_name_provider)
-            selected_row = Products.query.filter_by(name_product=selected_name_product, price=selected_price, provider_name_provider =selected_provider_name_provider).first()
+            selected_row = Products.query.filter_by(name_product=selected_name_product, price=selected_price,
+                                                    provider_name_provider=selected_provider_name_provider).first()
 
             db.session.delete(selected_row)
             db.session.commit()
@@ -448,7 +142,8 @@ def products():
             selected_price = selected_pk_data_list[1]
             selected_provider_name_provider = selected_pk_data_list[2]
 
-            selected_row = Products.query.filter_by(name_product=selected_name_product, price=selected_price, provider_name_provider=selected_provider_name_provider).first()
+            selected_row = Products.query.filter_by(name_product=selected_name_product, price=selected_price,
+                                                    provider_name_provider=selected_provider_name_provider).first()
 
             session['product_edit_pk_data'] = selected_pk_data
             return render_template("edit_product.html", row=selected_row, form=form)
@@ -466,10 +161,8 @@ def products():
     return render_template('products.html', data=select_result, form=form)
 
 
-
 @app.route('/edit_adv', methods=['GET', 'POST'])
 def edit_adv():
-
     form = AdvsForm()
     select_result = Advs.query.filter_by().all()
 
@@ -484,7 +177,8 @@ def edit_adv():
             selected_products_name_product = selected_pk_data_list[2]
 
             print(selected_name_adv, selected_description, selected_products_name_product)
-            adv =Advs.query.filter_by(name_adv=selected_name_adv, description=selected_description, products_name_product =selected_products_name_product).first()
+            adv = Advs.query.filter_by(name_adv=selected_name_adv, description=selected_description,
+                                       products_name_product=selected_products_name_product).first()
 
             adv.name_adv = form.name_adv.data
             adv.description = form.description.data
@@ -496,7 +190,6 @@ def edit_adv():
 
 @app.route('/advs', methods=['GET', 'POST'])
 def advs():
-
     form = AdvsForm()
     select_result = Advs.query.filter_by().all()
 
@@ -510,7 +203,8 @@ def advs():
             selected_products_name_product = selected_pk_data[2]
 
             print(selected_name_adv, selected_description, selected_products_name_product)
-            selected_row = Advs.query.filter_by(name_adv=selected_name_adv, description=selected_description, products_name_product =selected_products_name_product).first()
+            selected_row = Advs.query.filter_by(name_adv=selected_name_adv, description=selected_description,
+                                                products_name_product=selected_products_name_product).first()
             db.session.delete(selected_row)
             db.session.commit()
             select_result.remove(selected_row)
@@ -522,7 +216,8 @@ def advs():
             selected_name_adv = selected_pk_data_list[0]
             selected_description = selected_pk_data_list[1]
             selected_products_name_product = selected_pk_data_list[2]
-            selected_row = Advs.query.filter_by(name_adv=selected_name_adv, description=selected_description, products_name_product =selected_products_name_product).first()
+            selected_row = Advs.query.filter_by(name_adv=selected_name_adv, description=selected_description,
+                                                products_name_product=selected_products_name_product).first()
 
             session['adv_edit_pk_data'] = selected_pk_data
             return render_template("edit_adv.html", row=selected_row, form=form)
@@ -542,18 +237,94 @@ def advs():
 
 @app.route('/edit_viewer', methods=['GET', 'POST'])
 def edit_viewer():
-
     form = ViewersForm()
     select_result = Viewers.query.filter_by().all()
-    return render_template('viewers.html', data=select_result, form=form)
+
+    if request.method == 'POST':
+        if not form.validate():
+            flash('All fields are required')
+            return render_template('viewers.html', data=select_result, form=form)
+        else:
+            selected_pk_data_list = session['viewer_edit_pk_data'].split("█")
+            selected_email = selected_pk_data_list[0]
+            selected_nikname = selected_pk_data_list[1]
+            selected_firstname = selected_pk_data_list[2]
+            selected_lastname = selected_pk_data_list[2]
+        selected_age = selected_pk_data_list[2]
+        selected_country = selected_pk_data_list[2]
+
+        print(selected_email, selected_nikname, selected_firstname, selected_lastname, selected_age, selected_country)
+        viewer = Viewers.query.filter_by(email=selected_email, nikname=selected_nikname, firstname=selected_firstname,
+                                         lastname=selected_lastname, age=selected_age, country=selected_country).first()
+
+        viewer.email = form.email.data
+    viewer.nikname = form.nikname.data
+    viewer.firstname = form.firstname.data
+    viewer.lastname = form.lastname.data
+
+
+viewer.age = form.age.data
+viewer.country = form.country.data
+
+db.session.commit()
+
+return render_template('viewers.html', data=select_result, form=form)
 
 
 @app.route('/viewers', methods=['GET', 'POST'])
 def viewers():
-
     form = ViewersForm()
     select_result = Viewers.query.filter_by().all()
-    return render_template('viewers.html', data=select_result, form=form)
+
+    if request.method == 'POST':
+
+        selected_pk_data = request.form.get('del')
+        if selected_pk_data is not None:
+            selected_pk_data = selected_pk_data.split("█")
+            selected_email = selected_pk_data[0]
+            selected_nikname = selected_pk_data[1]
+            selected_firstname = selected_pk_data[2]
+            selected_lastname = selected_pk_data[3]
+        selected_age = selected_pk_data[4]
+        selected_country = selected_pk_data[5]
+
+        print(selected_email, selected_nikname, selected_products_name_product)
+        selected_row = Viewers.query.filter_by(email=selected_email, nikname=selected_nikname,
+                                               firstname=selected_firstname, lastname=selected_lastname,
+                                               age=selected_age, country=selected_country).first()
+        db.session.delete(selected_row)
+        db.session.commit()
+        select_result.remove(selected_row)
+        return render_template('viewers.html', data=select_result, form=form)
+
+    selected_pk_data = request.form.get('edit')
+    if selected_pk_data is not None:
+        selected_pk_data_list = selected_pk_data.split("█")
+        selected_email = selected_pk_data_list[0]
+        selected_nikname = selected_pk_data_list[1]
+        selected_firstname = selected_pk_data_list[2]
+        selected_lastname = selected_pk_data_list[3]
+    selected_age = selected_pk_data_list[4]
+    selected_country = selected_pk_data_list[5]
+
+    selected_row = Viewers.query.filter_by(email=selected_email, nikname=selected_nikname, firstname=selected_firstname,
+                                           lastname=selected_lastname, age=selected_age,
+                                           country=selected_country).first()
+    session['viewer_edit_pk_data'] = selected_pk_data
+    return render_template("edit_viewer.html", row=selected_row, form=form)
+
+
+print(form.validate())
+if not form.validate():
+    flash('All fields are required.')
+    return render_template('advs.html', data=select_result, form=form)
+else:
+    adv = Advs(form.name_adv.data, form.description.data, form.products_name_product.data)
+    db.session.add(adv)
+    db.session.commit()
+    select_result.append(adv)
+
+return render_template('viewers.html', data=select_result, form=form)
 '''
 @app.route('/edit_ViewersCanProduct', methods=['GET', 'POST'])
 def edit_ViewersCanProduct():
@@ -572,9 +343,9 @@ def ViewersCanProducts():
 
 '''
 
+
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
-
     last_char = None
     if request.method == 'POST':
 
@@ -593,7 +364,8 @@ def dashboard():
     for no_more in type_product_starts_result:
         counting_stars[type_product.index(no_more[:20])] += 1
 
-    bar, pie = go.Bar(x=type_product, y=counting_stars, marker=dict(color='rgb(122, 122, 122)')), go.Pie(labels=type_product, values=counting_stars)
+    bar, pie = go.Bar(x=type_product, y=counting_stars, marker=dict(color='rgb(122, 122, 122)')), go.Pie(
+        labels=type_product, values=counting_stars)
 
     data1, data2 = [bar], [pie]
     ids = ["1", "2"]
@@ -604,12 +376,15 @@ def dashboard():
     return render_template('dashboard.html',
                            graphJSON1=graphJSON1, graphJSON2=graphJSON2, ids=ids)
 
+
 @app.route('/claster', methods=['GET', 'POST'])
 def claster():
     df = pd.DataFrame()
 
-    for name_product, provider_name_provider in db.session.query(Products.name_product, Products.provider_name_provider):
-        df = df.append({"name_product": name_product, "provider_name_provider": provider_name_provider}, ignore_index=True)
+    for name_product, provider_name_provider in db.session.query(Products.name_product,
+                                                                 Products.provider_name_provider):
+        df = df.append({"name_product": name_product, "provider_name_provider": provider_name_provider},
+                       ignore_index=True)
 
     X = pd.get_dummies(data=df)
     print(X)
@@ -644,12 +419,14 @@ def claster():
     return render_template('claster.html', row=kmeans.predict(np.array([test_list]))[0],
                            count_claster=count_clasters, graphsJSON=graphsJSON)
 
+
 @app.route('/correlations', methods=['GET', 'POST'])
 def correlations():
     df = pd.DataFrame()
 
-    for name_product, count, avg in db.session.query(Products.name_product, func.count(Products.name_product), func.avg(Products.price)
-                                             ).group_by(Products.name_product):
+    for name_product, count, avg in db.session.query(Products.name_product, func.count(Products.name_product),
+                                                     func.avg(Products.price)
+                                                     ).group_by(Products.name_product):
         df = df.append({"count_name_product": float(count), "avg_price": float(avg)}, ignore_index=True)
     db.session.close()
     query = (
@@ -690,6 +467,8 @@ def correlations():
     graphsJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
 
     return render_template('regretion.html', graphsJSON=graphsJSON)
+
+
 '''
 @app.route('/correlation', methods=['GET', 'POST'])
 def correlation():
