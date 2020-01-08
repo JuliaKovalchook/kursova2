@@ -545,7 +545,7 @@ def search():
 
     return render_template('search.html', form=form, form_name="Search", action="search")
 
-
+'''
 @app.route('/search/result', methods=['GET', 'POST'])
 def searchList():
     que1=[]
@@ -570,7 +570,7 @@ def searchList():
         for item in res:
             print(item)
     return render_template('search_list.html', results=res)
-
+'''
 if __name__ == '__main__':
     app.run(debug=True)
 
