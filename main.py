@@ -523,7 +523,7 @@ list_goods1 = []
 res = []
 name_c=[]
 desc=[]
-
+'''
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     form = CreateQuery()
@@ -545,7 +545,7 @@ def search():
 
     return render_template('search.html', form=form, form_name="Search", action="search")
 
-'''
+
 @app.route('/search/result', methods=['GET', 'POST'])
 def searchList():
     que1=[]
