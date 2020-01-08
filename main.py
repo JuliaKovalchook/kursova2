@@ -251,8 +251,8 @@ def edit_viewer():
             selected_email = selected_pk_data_list[1]
             selected_firstname = selected_pk_data_list[2]
             selected_lastname = selected_pk_data_list[2]
-        selected_age = selected_pk_data_list[2]
-        selected_country = selected_pk_data_list[2]
+            selected_age = selected_pk_data_list[2]
+            selected_country = selected_pk_data_list[2]
 
         print(selected_nikname, selected_email,  selected_firstname, selected_lastname, selected_age, selected_country)
         viewer = Viewers.query.filter_by(nikname=selected_nikname, email=selected_email, firstname=selected_firstname,
