@@ -322,7 +322,7 @@ def viewers():
             db.session.add(viewer)
             db.session.commit()
             select_result.append(viewer)
-'''
+
     return render_template('viewers.html', data=select_result, form=form)
 
 '''
@@ -484,7 +484,7 @@ def correlation():
         if row['count_events'] == max(seq):
             res = row['name']
     return render_template('correlation.html', row=res)
-'''
+
 
 
 @app.route('/search', methods=['GET', 'POST'])
@@ -505,25 +505,25 @@ def search():
 
 '''
 @app.route('/search/result')
-def searchList():
-    res = []
-    try:
-        for i in list_adv:
-            name, new_skill, hashtag, city, dates, bonus = db.session \
-                .query(ormEvent.name_adv, ormPlan.description, ormEvent.hashtag, ormEvent.city, ormEvent.dates, ormBonus.name) \
-                .join(ormBonus, ormEvent.event_id == ormBonus.event_id).join(ormPlan,
-                                                                             ormEvent.event_id == ormPlan.event_id) \
-                .filter(ormEvent.event_id == i).one()
-            res.append(
-                {"name_adv": name_adv, "description": description, "products_name_product": products_name_product})
+    def searchList():
+        res = []
+        try:
+            for i in list_adv:
+                name, new_skill, hashtag, city, dates, bonus = db.session \
+                    .query(ormEvent.name_adv, ormPlan.description, ormEvent.hashtag, ormEvent.city, ormEvent.dates, ormBonus.name) \
+                    .join(ormBonus, ormEvent.event_id == ormBonus.event_id).join(ormPlan,
+                                                                                 ormEvent.event_id == ormPlan.event_id) \
+                    .filter(ormEvent.event_id == i).one()
+                res.append(
+                    {"name_adv": name_adv, "description": description, "products_name_product": products_name_product})
 
-				             name, new_skill, hashtag, city, dates, bonus = db.session \
-                .query(Advs.name_adv, Advs.description, Advs.products_name_product) \
-                .join(Products, Products.name_product == Advs.products_name_product)
-                .filter(Products.name_product == i).one()
-    except:
-        print("don't data")
-    print(list_adv)
+                                 name, new_skill, hashtag, city, dates, bonus = db.session \
+                    .query(Advs.name_adv, Advs.description, Advs.products_name_product) \
+                    .join(Products, Products.name_product == Advs.products_name_product)
+                    .filter(Products.name_product == i).one()
+        except:
+            print("don't data")
+        print(list_adv)
 
     return render_template('search_list_adv.html', name="result", results=res, action="/search/result")
 '''
