@@ -247,8 +247,8 @@ def edit_viewer():
             return render_template('viewers.html', data=select_result, form=form)
         else:
             selected_pk_data_list = session['viewer_edit_pk_data'].split("█")
-            selected_email = selected_pk_data_list[0]
-            selected_nikname = selected_pk_data_list[1]
+            selected_nikname = selected_pk_data_list[0]
+            selected_email = selected_pk_data_list[1]
             selected_firstname = selected_pk_data_list[2]
             selected_lastname = selected_pk_data_list[2]
         selected_age = selected_pk_data_list[2]
