@@ -42,10 +42,10 @@
                   <div class="border p-1 m-1">
                       <form action = "/viewers" method = post>
                           <p>
-                            {{ row.email, row.nikname, row.firstname, row.lastname,row.age, row.country}}
+                            {{ row.nikname, row.email,  row.firstname, row.lastname,row.age, row.country}}
 
-                            <button name="del" type="submit" class="mh-100 del" value="{{row.email}}█{{row.nikname}}█{{row.firstname}}█{{row.lastname}}█{{row.age}}█{{row.country}}">Delete</button>
-                            <button name="edit" type="submit" class="mh-100 edit" value="{{row.email}}█{{row.nikname}}█{{row.firstname}}█{{row.lastname}}█{{row.age}}█{{row.country}}">Edit</button>
+                            <button name="del" type="submit" class="mh-100 del" value="{{row.nikname}}█{{row.email}}█{{row.firstname}}█{{row.lastname}}█{{row.age}}█{{row.country}}">Delete</button>
+                            <button name="edit" type="submit" class="mh-100 edit" value="{{row.nikname}}█{{row.email}}█{{row.firstname}}█{{row.lastname}}█{{row.age}}█{{row.country}}">Edit</button>
                           </p>
                       </form>
                   </div>
