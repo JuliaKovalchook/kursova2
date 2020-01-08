@@ -469,7 +469,7 @@ def correlations():
     return render_template('regretion.html', graphsJSON=graphsJSON)
 
 
-'''
+
 @app.route('/correlation', methods=['GET', 'POST'])
 def correlation():
     counts = []
