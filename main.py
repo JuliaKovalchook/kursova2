@@ -518,6 +518,58 @@ def search():
 
     return render_template('search_list_adv.html', name="result", results=res, action="/search/result")
 '''
+list_goods = []
+list_goods1 = []
+res = []
+name_c=[]
+desc=[]
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    form = CreateQuery()
+
+    if request.method == 'POST':
+        if not form.validate():
+            return render_template('Search.html', form=form, form_name="Search", action="search")
+        else:
+            list_goods.clear()
+            list_goods1.clear()
+            for nameadv, descriptionadv, products_nameadv in db.session.query(Advs.name_adv, Advs.description, Advs.products_name_product ):
+                if nameadv == form.name_adv.data and products_nameadv == form.products_name_product.data:
+                    list_goods.append(nameadv)
+                    list_goods1.append(descriptionadv)
+                    print("dawd",list_goods)
+                    print("d", list_goods1)
+
+            return redirect(url_for('searchList'))
+
+    return render_template('search.html', form=form, form_name="Search", action="search")
+
+
+@app.route('/search/result', methods=['GET', 'POST'])
+def searchList():
+    que1=[]
+    res=[]
+    try:
+        for i in list_goods:
+            name, model = db.session.query(Store.store_name, Store.store_link).filter(Store.store_id == i).one()
+            res.append(
+                {"name": name, "model": model})
+        for j in list_goods1:
+            que1 = db.session.query(Charac.charac_name, Charac.charac_description, Charac.goods_fk).filter(Charac.goods_fk == j).all()
+            print("id", que1[2])
+            print("len", len(que1))
+            for i in range(len(que1)):
+                nn=que1[i][0]
+                dd= que1[i][1]
+                res.append({"name_c": nn, "desc": dd})
+        print("res",res)
+    except:
+        print("don't data")
+        print(res)
+        for item in res:
+            print(item)
+    return render_template('search_list.html', results=res)
 
 if __name__ == '__main__':
     app.run(debug=True)
