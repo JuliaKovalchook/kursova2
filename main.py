@@ -240,7 +240,7 @@ def advs():
 def edit_viewer():
     form = ViewersForm()
     select_result = Viewers.query.filter_by().all()
-    '''
+
     if request.method == 'POST':
         if not form.validate():
             flash('All fields are required')
@@ -254,18 +254,18 @@ def edit_viewer():
         selected_age = selected_pk_data_list[2]
         selected_country = selected_pk_data_list[2]
 
-        print(selected_email, selected_nikname, selected_firstname, selected_lastname, selected_age, selected_country)
-        viewer = Viewers.query.filter_by(email=selected_email, nikname=selected_nikname, firstname=selected_firstname,
+        print(selected_nikname, selected_email,  selected_firstname, selected_lastname, selected_age, selected_country)
+        viewer = Viewers.query.filter_by(nikname=selected_nikname, email=selected_email, firstname=selected_firstname,
                                          lastname=selected_lastname, age=selected_age, country=selected_country).first()
 
-        viewer.email = form.email.data
         viewer.nikname = form.nikname.data
+        viewer.email = form.email.data
         viewer.firstname = form.firstname.data
         viewer.lastname = form.lastname.data
         viewer.age = form.age.data
         viewer.country = form.country.data
         db.session.commit()
-    '''
+
     return render_template('viewers.html', data=select_result, form=form)
 
 
